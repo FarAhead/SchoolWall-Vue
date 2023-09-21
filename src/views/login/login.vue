@@ -39,6 +39,10 @@
 </template>
 
 <script>
+
+
+import store from "@/store";
+
 export default {
   data() {
     return {
@@ -58,6 +62,10 @@ export default {
     };
   },
   methods: {
+    // 映射 SET_USER_INFO mutation
+    //...mapMutations('user',['SET_USER_INFO']),
+
+    //提交登录表单
     submitForm() {
       this.$refs["loginForm"].validate((isValid)=>{
         if (isValid){   //表单校验合法
@@ -70,7 +78,7 @@ export default {
               location.reload()
             }
           } else if (this.user.type==="organization"){    //社团组织
-            this.request.get("/login/org",{
+            this.request.get("https://mock.apifox.cn/m2/3303344-0-default/111733082",{
               body:{
                 zid:this.user.uid,
                 zpwd:this.user.password
@@ -79,6 +87,9 @@ export default {
                 .then((response)=>{
                     if (response.code === "200"){   //成功登录
                       this.$message.success("登录成功")
+                      // 保存用户信息到本地存储
+                      localStorage.setItem('userInfo', JSON.stringify(response.data));
+                      store.commit('SET_USER_INFO',response.data) ;
                       this.$router.push("/organization")
                     } else {
                       this.$message.error("用户名或密码错误")

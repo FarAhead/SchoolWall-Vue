@@ -37,8 +37,8 @@
           <el-input v-model="newUser.zname"></el-input>
         </el-form-item>
 
-        <el-form-item label="负责人名" prop="zuname" v-if="this.newUser.utype==='organization'">
-          <el-input v-model="newUser.zuname"></el-input>
+        <el-form-item label="负责人名" prop="zstudent" v-if="this.newUser.utype==='organization'">
+          <el-input v-model="newUser.zstudent"></el-input>
         </el-form-item>
 
         <el-form-item label="邮箱" prop="email">
@@ -99,7 +99,7 @@ export default {
         zid: "",
         uname: "",
         zname:"",
-        zuname:"",
+        zstudent:"",
         email:"",
         usex:"",
         utype:"student",
@@ -111,7 +111,7 @@ export default {
         uname: [{ required: true, message: "用户名不能为空", trigger: "blur" }],
         email: [{ required: true, message: "邮箱不能为空", trigger: "blur" }],
         zname: [{ required: true, message: "请填写", trigger: "blur" }],
-        zuname: [{ required: true, message: "请填写", trigger: "blur" }],
+        zstudent: [{ required: true, message: "请填写", trigger: "blur" }],
         usex: [{ required: true, message: "请填写", trigger: "blur" }],
         zid: [{ required: true, message: "请填写"}],
         upwd: [{ required: true, validator: validatePass, trigger: "blur" }],
