@@ -78,7 +78,7 @@ export default {
               location.reload()
             }
           } else if (this.user.type==="organization"){    //社团组织
-            this.request.get("https://mock.apifox.cn/m2/3303344-0-default/111733082",{
+            this.request.get("/login/org",{
               body:{
                 zid:this.user.uid,
                 zpwd:this.user.password
