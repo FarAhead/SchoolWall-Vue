@@ -19,7 +19,29 @@
   </el-col>
   <el-col :span="6">
     <div class="grid-content bg-purple-light">
-    右边可以放一些快捷链接
+      <div class="ask-question" style="display: flex">
+        <div class="ask-question-title">
+          <div class="ask-question-head" @click="isAskShow =!isAskShow">我要提问</div>
+          <el-collapse-transition>
+            <el-form class="ask-question-content" v-show="isAskShow" :model="askForm" ref="askForm">
+              <el-form-item label="活动名称" prop="name">
+                <el-input v-model="askForm.askTitle"></el-input>
+              </el-form-item>
+              <el-form-item label="活动形式" prop="desc">
+                <el-input type="textarea"
+                          v-model="askForm.askContent"
+                          maxlength="100"
+                          placeholder="在这里输入你想说的话"
+                          show-word-limit
+                >
+                </el-input>
+                <el-button type="primary" @click="submitForm('askForm')">立即提问</el-button>
+              </el-form-item>
+            </el-form>
+          </el-collapse-transition>
+        </div>
+      </div>
+
     </div>
   </el-col>
 
@@ -40,6 +62,12 @@ export default {
   },
   data(){
     return {
+      isAskShow:false,
+      askForm:{
+        askTitle:'',
+        askContent:''
+
+      },
       questions:[
         {
           qid:0,
@@ -64,9 +92,18 @@ export default {
     }
   },
   methods:{
-
+    submitForm(formName){
+      this.$refs[formName].validate((valid)=>{
+        if (valid){
+          alert("submit");
+        }else{
+          console.log("error")
+        }
+      })
+    }
   },
   mounted() {
+
     this.request.post('https://mock.apifox.cn/m2/3303344-0-default/111528940')
         .then((response)=>{
           console.log("11111111111")

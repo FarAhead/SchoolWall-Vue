@@ -1,5 +1,5 @@
 <template>
-  <div class="content-item-content" style="margin: 20px;background-color:aliceblue">
+  <el-card class="content-item-content" shadow="hover" style="margin: 20px;background-color:aliceblue">
     <div class="content-info" style="display: grid; grid-template-columns: 150px 1fr">
       <div class="questioner-info">
         <div class="questioner-avatar" style="justify-items: center;margin: 10px">
@@ -64,8 +64,7 @@
         </div>
       </div>
     </el-collapse-transition>
-
-  </div>
+  </el-card>
 </template>
 
 <script>
