@@ -1,5 +1,5 @@
 <template>
-  <div class="content-item-content" style="margin: 20px">
+  <div class="content-item-content" style="margin: 20px;background-color:aliceblue">
     <div class="content-info" style="display: grid; grid-template-columns: 150px 1fr">
       <div class="questioner-info">
         <div class="questioner-avatar" style="justify-items: center;margin: 10px">
@@ -8,10 +8,10 @@
         <div class="questioner-name"><span>这是用户名称</span></div>
       </div>
       <div class="questiion-info">
-        <div class="question-title">111</div>
+        <div class="question-title">{{question.qtitle}}</div>
         <div class="question-content">
           <div class="question-content-text">
-            这是一段示例文字  这是一段示例文字 这是一段示例文字 这是一段示例文字 这是一段示例文字 这是一段示例文字 这是一段示例文字 这是一段示例文字 这是一段示例文字 这是一段示例文字 这是一段示例文字 这是一段示例文字
+            {{question.qcontent}}
           </div>
           <el-button class="show-all-content" @click="">展开全文</el-button>
         </div>
@@ -19,13 +19,14 @@
     </div>
     <div class="comment-item" style="display: flex;justify-content: space-between">
       <div class="comment-button">
-        <el-button icon="el-icon-search" >赞同 12</el-button>
-        <el-button icon="el-icon-search" @click="showAnswer = !showAnswer">评论 6</el-button>
+        <el-button icon="el-icon-search" >赞同 {{question.qlikecount}}</el-button>
+        <el-button icon="el-icon-search" @click="showAnswer = !showAnswer">评论 {{question.qanswercount}}</el-button>
         <el-button icon="el-icon-search" >收藏</el-button>
         <el-button icon="el-icon-search" >举报</el-button>
       </div>
       <div class="comment-count">
-        <span>666次浏览</span>
+        <span>{{question.qtime}}发布&nbsp&nbsp&nbsp</span>
+        <span>  {{question.qbrowsecount }}次浏览</span>
       </div>
     </div>
 
@@ -70,9 +71,10 @@
 <script>
 export default {
   name: "question",
+  props:['question'],
   data() {
     return {
-      showAnswer:true,
+      showAnswer:false,
       text: '',
       textarea: ''
     }

@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import organizationInfo from "@/store/modules/organizationInfo";
 export default {
   name: "organizationAside",
   data(){
@@ -48,7 +49,7 @@ export default {
     },
     logout(){
       // 清除用户信息
-      this.$store.commit('CLEAR_USER_INFO');
+      organizationInfo.commit('CLEAR_ORG_INFO');
       // 清除本地存储中的用户信息
       localStorage.removeItem('userInfo');
       // 其他退出登录操作，如重定向到登录页等

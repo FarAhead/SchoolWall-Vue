@@ -41,7 +41,8 @@
 <script>
 
 
-import store from "@/store";
+import studentInfo from "@/store/modules/studentInfo";
+import organizationInfo from "@/store/modules/organizationInfo";
 
 export default {
   data() {
@@ -89,7 +90,7 @@ export default {
                       this.$message.success("登录成功")
                       // 保存用户信息到本地存储
                       localStorage.setItem('userInfo', JSON.stringify(response.data));
-                      store.commit('SET_USER_INFO',response.data) ;
+                      organizationInfo.commit('SET_ORG_INFO',response.data) ;
                       this.$router.push("/organization")
                     } else {
                       this.$message.error("用户名或密码错误")
@@ -98,7 +99,7 @@ export default {
                 })
 
           } else { //学生个人
-            this.request.get("/login/user",{
+            this.request.get("https://mock.apifox.cn/m2/3303344-0-default/111435518?uid=921107820244",{
               body:{
                 uid:this.user.uid,
                 upwd:this.user.password
@@ -107,6 +108,8 @@ export default {
                 .then((response)=>{
                   if (response.code === "200"){   //成功登录
                     this.$message.success("登录成功")
+                    localStorage.setItem('userInfo', JSON.stringify(response.data));
+                    studentInfo.commit('SET_STU_INFO',response.data);
                     this.$router.push("/student")
                   } else {
                     this.$message.error("用户名或密码错误")

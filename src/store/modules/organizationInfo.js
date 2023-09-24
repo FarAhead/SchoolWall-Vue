@@ -1,28 +1,31 @@
-const state = {
-    userInfo:null
-}
+import Vue from "vue";
+import Vuex from "vuex";
 
-const mutations = {
-    SET_USER_INFO(state,userInfo){
-        state.userInfo = userInfo;
+Vue.use(Vuex);
+
+const organizationInfo = new Vuex.Store({
+    state:() =>({
+        orgInfo:null,
+        isOrgLogged:false
+    }),
+    mutations:{
+        SET_ORG_INFO(state, userInfo){
+            state.orgInfo = userInfo;
+            state.isOrgLogged = true
+        },
+        CLEAR_ORG_INFO(state){
+            state.orgInfo =null;
+            state.isOrgLogged = false
+        }
     },
-    CLEAR_USER_INFO(state){
-      state.userInfo =null;
+    actions:{
+
+    },
+    getters:{
+
     }
-}
+})
 
-const getters = {
-    userName: state=>state.userInfo.zstudent,
-    OrgName: state=>state.userInfo.zname
-}
 
-const actions = {
 
-}
-
-export default {
-    state,
-    mutations,
-    getters,
-    actions
-}
+export default organizationInfo

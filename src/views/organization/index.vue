@@ -21,7 +21,7 @@
 
 <script>
 
-import store from "@/store";
+
 import Aside from '@/components/organizationAside.vue'
 import Header from "@/components/Header.vue";
 
@@ -32,9 +32,9 @@ export default {
     Header
   },
   computed: {
-    Name() {
-      return store.getters["userName"]
-    },
+    // Name() {
+    //   return store.getters["userName"]
+    // },
     // zName(){
     //   return store.getters["OrgName"]
     // }

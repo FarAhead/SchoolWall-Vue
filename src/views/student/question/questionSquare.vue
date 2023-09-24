@@ -12,7 +12,7 @@
       </div>
 
       <div class="content-list-container">
-        <questionItem v-for="question in questions" :key="question.qid"></questionItem>
+        <questionItem v-for="question in questions" :key="question.qid" :question="question"></questionItem>
       </div>
     </div>
 
@@ -32,6 +32,7 @@
 
 <script>
 import questionItem from "@/components/card/questionItem.vue";
+
 export default {
   name: "questionSquare",
   components:{
@@ -46,9 +47,10 @@ export default {
           qcontent:"问题的具体描述",
           quser:"用户姓名",
           qavatar:"用户头像url",
-          qbrowsercount:666,
+          qbrowsecount:666,
           qlikecount:15,
           qanswercount:12,
+          qtime:"",
           comments:[
             {
               auser:"回复者姓名",
@@ -63,6 +65,15 @@ export default {
   },
   methods:{
 
+  },
+  mounted() {
+    this.request.post('https://mock.apifox.cn/m2/3303344-0-default/111528940')
+        .then((response)=>{
+          console.log("11111111111")
+          if (response.code==="200"){
+            this.questions = response.data;
+          }
+        })
   }
 }
 </script>
