@@ -13,7 +13,7 @@
 
   <div class="right">
     <div>
-      打算放头像和用户名
+      <span>您好，{{Name}}</span>
       <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
     </div>
   </div>
@@ -21,10 +21,18 @@
 </template>
 
 <script>
+import store from "@/store";
+
 export default {
   name: "Header",
+  computed:{
+    Name() {
+      return store.getters["userName"]
+    },
+  },
   data(){
     return{
+
       input:{
 
       }

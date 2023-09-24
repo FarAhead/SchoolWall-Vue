@@ -1,34 +1,46 @@
 <template>
-<div>
-  <h1>你好，{{Name}}</h1>
-  <h2>您所在的组织是：{{zName}}</h2>
-  <el-button @click="logout">退出登录</el-button>
-</div>
+  <el-container style="height: 100vh">
+    <el-aside width="200px">
+      <Aside>
+      </Aside>
+    </el-aside>
+
+    <el-container>
+
+      <el-header>
+        <Header></Header>
+      </el-header>
+
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
+
 </template>
 
 <script>
 
 import store from "@/store";
+import Aside from '@/components/organizationAside.vue'
+import Header from "@/components/Header.vue";
 
 export default {
   name: "index",
+  components:{
+    Aside,
+    Header
+  },
   computed: {
     Name() {
       return store.getters["userName"]
     },
-    zName(){
-      return store.getters["OrgName"]
-    }
+    // zName(){
+    //   return store.getters["OrgName"]
+    // }
   },
   methods:{
-    logout(){
-      // 清除用户信息
-      this.$store.commit('CLEAR_USER_INFO');
-      // 清除本地存储中的用户信息
-      localStorage.removeItem('userInfo');
-      // 其他退出登录操作，如重定向到登录页等
-      this.$router.push("/login");
-    }
+
   }
 
 }

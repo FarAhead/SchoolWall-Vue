@@ -1,12 +1,10 @@
 <template>
-<div>
-  这是组织主页
-</div>
+
 </template>
 
 <script>
 export default {
-  name: "home"
+  name: "ManageInfo"
 }
 </script>
 

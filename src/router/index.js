@@ -38,8 +38,10 @@ const routes = [
   {
     path: "/organization",
     component:() => import('../views/organization/index.vue'),
-
+    redirect: 'organization/home',
     children:[
+      {path: 'home',component:()=>import('../views/organization/home.vue')},
+      {path: 'announceNews',component:()=>import('../views/organization/news/announceNews.vue')}
     ]
   },
   {

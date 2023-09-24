@@ -78,7 +78,7 @@ export default {
               location.reload()
             }
           } else if (this.user.type==="organization"){    //社团组织
-            this.request.get("/login/org",{
+            this.request.get("https://mock.apifox.cn/m2/3303344-0-default/111733082",{
               body:{
                 zid:this.user.uid,
                 zpwd:this.user.password
@@ -96,8 +96,7 @@ export default {
                       this.resetForm()
                    }
                 })
-                .catch((error)=>{
-                })
+
           } else { //学生个人
             this.request.get("/login/user",{
               body:{
@@ -114,8 +113,7 @@ export default {
                     this.resetForm()
                   }
                 })
-                .catch((error)=>{
-                })
+
           }
         }
       })
