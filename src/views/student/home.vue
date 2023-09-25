@@ -1,12 +1,21 @@
 <template>
 <div>
-  这是学生主页
+  <homepage v-bind:uType="userType"></homepage>
 </div>
 </template>
 
 <script>
+import homepage from "@/components/homepage/index.vue";
 export default {
-  name: "home"
+  name: "home",
+  components:{
+    homepage
+  },
+  data(){
+    return{
+      userType:"student"
+    }
+  }
 }
 </script>
 

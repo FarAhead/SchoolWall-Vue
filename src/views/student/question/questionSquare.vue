@@ -21,7 +21,7 @@
     <div class="grid-content bg-purple-light">
       <div class="ask-question" style="display: flex">
         <div class="ask-question-title">
-          <div class="ask-question-head" @click="isAskShow =!isAskShow">我要提问</div>
+          <div class="ask-question-head" @click="isAskShow =!isAskShow"><span>点击提问</span></div>
           <el-collapse-transition>
             <el-form class="ask-question-content" v-show="isAskShow" :model="askForm" ref="askForm">
               <el-form-item label="活动名称" prop="name">

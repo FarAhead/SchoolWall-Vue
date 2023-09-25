@@ -89,7 +89,7 @@ export default {
                     if (response.code === "200"){   //成功登录
                       this.$message.success("登录成功")
                       // 保存用户信息到本地存储
-                      localStorage.setItem('userInfo', JSON.stringify(response.data));
+                      //localStorage.setItem('userInfo', JSON.stringify(response.data));
                       organizationInfo.commit('SET_ORG_INFO',response.data) ;
                       this.$router.push("/organization")
                     } else {
@@ -108,7 +108,7 @@ export default {
                 .then((response)=>{
                   if (response.code === "200"){   //成功登录
                     this.$message.success("登录成功")
-                    localStorage.setItem('userInfo', JSON.stringify(response.data));
+                    //localStorage.setItem('userInfo', JSON.stringify(response.data));
                     studentInfo.commit('SET_STU_INFO',response.data);
                     this.$router.push("/student")
                   } else {

@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+//一个vuex插件，能够让网络刷新后保持登录状态
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex);
 
@@ -23,7 +25,8 @@ const organizationInfo = new Vuex.Store({
     },
     getters:{
 
-    }
+    },
+    plugins: [createPersistedState()]
 })
 
 
