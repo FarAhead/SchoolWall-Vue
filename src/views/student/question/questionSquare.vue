@@ -24,10 +24,10 @@
           <div class="ask-question-head" @click="isAskShow =!isAskShow"><span>点击提问</span></div>
           <el-collapse-transition>
             <el-form class="ask-question-content" v-show="isAskShow" :model="askForm" ref="askForm">
-              <el-form-item label="活动名称" prop="name">
+              <el-form-item label="问题名称" prop="askTitle">
                 <el-input v-model="askForm.askTitle"></el-input>
               </el-form-item>
-              <el-form-item label="活动形式" prop="desc">
+              <el-form-item label="问题内容" prop="askContent">
                 <el-input type="textarea"
                           v-model="askForm.askContent"
                           maxlength="100"
@@ -35,7 +35,7 @@
                           show-word-limit
                 >
                 </el-input>
-                <el-button type="primary" @click="submitForm('askForm')">立即提问</el-button>
+                <el-button type="primary" @click="submitForm('askForm')" >立即提问</el-button>
               </el-form-item>
             </el-form>
           </el-collapse-transition>
@@ -54,7 +54,7 @@
 
 <script>
 import questionItem from "@/components/card/questionItem.vue";
-
+import studentInfo from "@/store/modules/studentInfo";
 export default {
   name: "questionSquare",
   components:{
@@ -66,8 +66,8 @@ export default {
       askForm:{
         askTitle:'',
         askContent:''
-
       },
+
       questions:[
         {
           qid:0,
@@ -79,34 +79,66 @@ export default {
           qlikecount:15,
           qanswercount:12,
           qtime:"",
-          comments:[
-            {
-              auser:"回复者姓名",
-              aavatar:"回答用户url",
-              acontent:"回答的内容"
+        },
+      ],
+      rules:{
+        askTitle: [ { required: true, message: "账号不能为空！", trigger: "blur" },],
+        askContent: [{required:true,message:"请填写内容",trigger:"blur"},],
 
-            }
-          ]
-        }
-      ]
+      },
     }
   },
+
   methods:{
     submitForm(formName){
-      this.$refs[formName].validate((valid)=>{
+      this.$refs["askForm"].validate((valid)=>{
         if (valid){
-          alert("submit");
+          this.request.post("https://mock.apifox.cn/m2/3303344-0-default/111477238",{
+            body:{
+              uid:studentInfo.state.stuInfo.uid,
+              qtitle:this.askForm.askTitle,
+              qcontent:this.askForm.askContent,
+              qtime:this.getDateTime(),
+              qlabel:1
+            }
+          })
+              .then((response)=>{
+                if (response.code === "200"){
+                  this.$message({message: '发送成功', type: 'success'});
+                  this.$refs["askForm"].resetFields();
+                } else {
+                  this.$message({message: '发送失败，请重试', type: 'error'});
+                }
+              })
         }else{
           console.log("error")
         }
       })
-    }
+    },
+    getDateTime() {
+      var _this = this;
+      let yy = new Date().getFullYear();
+      let mm = new Date().getMonth() + 1;
+      let dd = new Date().getDate();
+      let hh = new Date().getHours();
+      let mf =
+          new Date().getMinutes() < 10
+              ? "0" + new Date().getMinutes()
+              : new Date().getMinutes();
+      let ss =
+          new Date().getSeconds() < 10
+              ? "0" + new Date().getSeconds()
+              : new Date().getSeconds();
+      let gettime = yy + "-" + mm + "-" + dd + " " + hh + ":" + mf + ":" + ss;
+      return gettime;
+    },
   },
-  mounted() {
 
+  mounted() {
+    //页面加载后自动获取所有帖子
     this.request.post('https://mock.apifox.cn/m2/3303344-0-default/111528940')
         .then((response)=>{
-          console.log("11111111111")
+          console.log("帖子加载完毕")
           if (response.code==="200"){
             this.questions = response.data;
           }

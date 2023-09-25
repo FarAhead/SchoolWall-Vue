@@ -1,12 +1,21 @@
 <template>
 <div>
-  这是组织主页
+<homepage :u-type="userType"></homepage>
 </div>
 </template>
 
 <script>
+import homepage from "@/components/homepage/index.vue";
 export default {
-  name: "home"
+  name: "home",
+  components:{
+    homepage
+  },
+  data(){
+    return{
+      userType:"organization"
+    }
+  }
 }
 </script>
 

@@ -53,12 +53,8 @@ export default {
         type: "admin"
       },
       rules: {
-        uid: [
-          { required: true, message: "账号不能为空！", trigger: "blur" },
-        ],
-        password: [
-          { required: true, message: "密码不能为空！", trigger: "blur" },
-        ],
+        uid: [{ required: true, message: "账号不能为空！", trigger: "blur" },],
+        password: [{ required: true, message: "密码不能为空！", trigger: "blur" },],
       },
     };
   },
@@ -79,7 +75,7 @@ export default {
               location.reload()
             }
           } else if (this.user.type==="organization"){    //社团组织
-            this.request.get("https://mock.apifox.cn/m2/3303344-0-default/111733082",{
+            this.request.post("https://mock.apifox.cn/m2/3303344-0-default/111733082",{
               body:{
                 zid:this.user.uid,
                 zpwd:this.user.password
@@ -99,7 +95,7 @@ export default {
                 })
 
           } else { //学生个人
-            this.request.get("https://mock.apifox.cn/m2/3303344-0-default/111435518?uid=921107820244",{
+            this.request.post("https://mock.apifox.cn/m2/3303344-0-default/111435518?uid=921107820244",{
               body:{
                 uid:this.user.uid,
                 upwd:this.user.password

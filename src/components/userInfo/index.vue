@@ -1,10 +1,10 @@
 <template>
-<div>这是我的订单</div>
+<div>这是通用的userInfo模板</div>
 </template>
 
 <script>
 export default {
-  name: "myOrder"
+  name: "index"
 }
 </script>
 

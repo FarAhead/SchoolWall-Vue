@@ -12,6 +12,7 @@
       </div>
     </div>
     <div class="home-nav">
+<!--      动态组件-->
       <component :is="currentNavbar"></component>
     </div>
     <div  class="home-content">
@@ -22,8 +23,8 @@
 </template>
 
 <script>
-import stuHomeNav from "@/components/homepage/stuHomeNav.vue";
-import orgHomeNav from "@/components/homepage/orgHomeNav.vue";
+import stuHomeNav from "@/views/student/stuHomeNav.vue";
+import orgHomeNav from "@/views/organization/orgHomeNav.vue";
 export default {
   name: "index",
   components:{

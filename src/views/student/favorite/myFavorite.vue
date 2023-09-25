@@ -1,10 +1,10 @@
 <template>
-<div>这是我的订单</div>
+<div>这是我的收藏</div>
 </template>
 
 <script>
 export default {
-  name: "myOrder"
+  name: "myFavorite"
 }
 </script>
 

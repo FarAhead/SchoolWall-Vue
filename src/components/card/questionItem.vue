@@ -20,7 +20,7 @@
     <div class="comment-item" style="display: flex;justify-content: space-between">
       <div class="comment-button">
         <el-button icon="el-icon-search" >赞同 {{question.qlikecount}}</el-button>
-        <el-button icon="el-icon-search" @click="showAnswer = !showAnswer">评论 {{question.qanswercount}}</el-button>
+        <el-button icon="el-icon-search" @click="expandAnswer">评论 {{question.qanswercount}}</el-button>
         <el-button icon="el-icon-search" >收藏</el-button>
         <el-button icon="el-icon-search" >举报</el-button>
       </div>
@@ -45,8 +45,9 @@
           </div>
           <el-button type="primary" style="height: 50px">提交</el-button>
         </div>
+
         <div class="answer-list">
-          <div class="answer-list-item" style="display: grid;grid-template-columns: 80px 1fr">
+          <div class="answer-list-item" v-for="answer in answers" :key="answer.aid" style="display: grid;grid-template-columns: 80px 1fr" >
             <div class="answer-info">
               <div class="answer-avatar">
                 <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" :size="50"></el-avatar>
@@ -54,10 +55,10 @@
             </div>
             <div class="answer-content">
               <div class="answer-name">
-                回答者昵称
+                {{ answer.uid }}
               </div>
               <div class="answer-text">
-                这是回答的内容
+                {{answer.acontent}}
               </div>
             </div>
           </div>
@@ -68,6 +69,8 @@
 </template>
 
 <script>
+import request from "axios";
+
 export default {
   name: "question",
   props:['question'],
@@ -75,7 +78,40 @@ export default {
     return {
       showAnswer:false,
       text: '',
-      textarea: ''
+      textarea: '',
+      answers:[
+        {
+          aid:"",
+          uid:"",
+          acontent:"",
+          atime:'',
+          alikecount:'',
+        }
+      ]
+
+    }
+  },
+  methods:{
+    expandAnswer(){
+      this.showAnswer = !this.showAnswer;
+      if (this.showAnswer){
+        this.fetchAnswer();
+      }
+    },
+    fetchAnswer(){
+      // answer/query
+      this.request.post('https://mock.apifox.cn/m2/3303344-0-default/113055384',{
+        body:{
+          qid:this.$props.question.qid
+        }
+      })
+          .then((response)=>{
+            if(response.code==="200"){
+              this.answers=response.data;
+            } else {
+              console.log("没有回复")
+            }
+          })
     }
   }
 }

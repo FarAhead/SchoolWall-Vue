@@ -1,10 +1,13 @@
 <template>
-<div>这是我的订单</div>
+<div>
+
+</div>
 </template>
 
 <script>
 export default {
-  name: "myOrder"
+  name: "myQuestion",
+
 }
 </script>
 
