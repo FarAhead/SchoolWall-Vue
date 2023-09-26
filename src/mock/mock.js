@@ -1,9 +1,16 @@
 export const mockPaths = {
+
+    //login部分
+
     //个人登录
     "login/user": "https://mock.apifox.cn/m2/3303344-0-default/111435518?uid=921107820244",
 
     //组织登录
     "login/org" : "https://mock.apifox.cn/m2/3303344-0-default/111733082",
+
+
+
+    //student部分
 
     //查询所有帖子
     "question/queryall" : "https://mock.apifox.cn/m2/3303344-0-default/111528940",
@@ -26,5 +33,17 @@ export const mockPaths = {
     //查询当前帖子自己是否收藏/点赞
     //点赞未收藏
     "question/find1" : "https://mock.apifox.cn/m2/3303344-0-default/113649459",
+
+
+
+    //admin部分
+    //查询所有用户
+    "user/query" : "https://mock.apifox.cn/m2/3303344-0-default/111531543",
+    //重置某用户密码
+    "user/updpwd" : "https://mock.apifox.cn/m2/3303344-0-default/111893061",
+    //删除某用户
+    "user/delete" : "https://mock.apifox.cn/m2/3303344-0-default/111540348",
+
+
 
 };
