@@ -19,9 +19,9 @@
     </div>
     <div class="comment-item" style="display: flex;justify-content: space-between">
       <div class="comment-button">
-        <el-button icon="el-icon-search" >赞同 {{question.qlikecount}}</el-button>
+        <el-button icon="el-icon-search" @click="likeQuestion"  :type="isLiked ? 'primary' : 'default'"> {{ isLiked ? '已点赞' : '点赞' }} {{question.qlikecount}}</el-button>
         <el-button icon="el-icon-search" @click="expandAnswer">评论 {{question.qanswercount}}</el-button>
-        <el-button icon="el-icon-search" >收藏</el-button>
+        <el-button icon="el-icon-search" @click="collectQuestion" :type="isCollected ? 'warning':'default'">{{isCollected?'已收藏':'收藏'}}</el-button>
         <el-button icon="el-icon-search" >举报</el-button>
       </div>
       <div class="comment-count">
@@ -57,19 +57,20 @@
               <div class="answer-name">
                 {{ answer.uid }}
               </div>
+              </div>
               <div class="answer-text">
                 {{answer.acontent}}
               </div>
             </div>
           </div>
-        </div>
       </div>
     </el-collapse-transition>
   </el-card>
 </template>
 
 <script>
-import request from "axios";
+
+import studentInfo from "@/store/modules/studentInfo";
 
 export default {
   name: "question",
@@ -77,6 +78,8 @@ export default {
   data() {
     return {
       showAnswer:false,
+      isLiked:false,
+      isCollected:false,
       text: '',
       textarea: '',
       answers:[
@@ -88,19 +91,22 @@ export default {
           alikecount:'',
         }
       ]
-
     }
   },
   methods:{
+
+    //展开回复
     expandAnswer(){
       this.showAnswer = !this.showAnswer;
       if (this.showAnswer){
         this.fetchAnswer();
       }
     },
+
+    //获取回复列表
     fetchAnswer(){
       // answer/query
-      this.request.post('https://mock.apifox.cn/m2/3303344-0-default/113055384',{
+      this.request.post('answer/query',{
         body:{
           qid:this.$props.question.qid
         }
@@ -112,7 +118,105 @@ export default {
               console.log("没有回复")
             }
           })
+    },
+
+    //点赞帖子与取消
+    likeQuestion(){
+      if (this.isLiked === false){
+        this.request.post("question/like",{
+          body:{
+            uid:studentInfo.state.stuInfo.uid,
+            qid:this.$props.question.qid
+          }
+        })
+            .then((response)=>{
+              if(response.code === "200"){
+                this.isLiked = true;
+
+                this.$message.success("点赞成功！这篇帖子将被更多同学发现~");
+                this.$props.question.qlikecount= this.$props.question.qlikecount+1;
+
+              } else{
+                this.$message.error("点赞失败，请先登录！")
+              }
+            })
+      } else {  //取消点赞
+        this.request.post("question/unlike",{
+          body:{
+            uid:studentInfo.state.stuInfo.uid,
+            qid:this.$props.question.qid
+          }
+        })
+            .then((response)=>{
+              if (response.code === "200"){
+                this.isLiked = false;
+                this.$message.success("已取消点赞");
+                this.$props.question.qlikecount= this.$props.question.qlikecount-1;
+              } else {
+                this.$message.error("取消点赞失败")
+              }
+            })
+      }
+    },
+
+    //收藏帖子与取消
+    collectQuestion(){
+      if (this.isCollected === false){
+        this.request.post("question/coll",{
+          body:{
+            uid:studentInfo.state.stuInfo.uid,
+            qid:this.$props.question.qid
+          }
+        })
+            .then((response)=>{
+              if(response.code === "200"){
+                this.isCollected = true;
+                this.$message.success("收藏成功！可以到我的收藏夹中去查看~");
+
+              } else{
+                this.$message.error("收藏失败，请先登录！")
+              }
+            })
+      } else {  //取消收藏
+        this.request.post("question/uncoll",{
+          body:{
+            uid:studentInfo.state.stuInfo.uid,
+            qid:this.$props.question.qid
+          }
+        })
+            .then((response)=>{
+              if (response.code === "200"){
+                this.isCollected = false;
+                this.$message.success("已取消收藏");
+              } else {
+                this.$message.error("取消收藏失败")
+              }
+            })
+      }
     }
+  },
+  mounted() {
+    if(studentInfo.state.stuInfo ){
+      this.request.post("question/find1",{
+        body:{
+          qid:this.$props.question.qid,
+          uid:studentInfo.state.stuInfo.uid
+        }
+      })
+          .then((response)=>{
+            if(response.code === "200"){
+              {
+                this.isLiked = response.data.cnt1 === 1;
+                this.isCollected = response.data.cnt2 === 1;
+              }
+            } else {
+              console.log("获取当前帖子的点赞收藏情况失败")
+            }
+          })
+    } else {
+      this.$message.error("当前用户未登录，请先登录！")
+    }
+
   }
 }
 </script>

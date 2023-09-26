@@ -93,7 +93,7 @@ export default {
     submitForm(formName){
       this.$refs["askForm"].validate((valid)=>{
         if (valid){
-          this.request.post("https://mock.apifox.cn/m2/3303344-0-default/111477238",{
+          this.request.post("question/add",{
             body:{
               uid:studentInfo.state.stuInfo.uid,
               qtitle:this.askForm.askTitle,
@@ -136,7 +136,7 @@ export default {
 
   mounted() {
     //页面加载后自动获取所有帖子
-    this.request.post('https://mock.apifox.cn/m2/3303344-0-default/111528940')
+    this.request.post('question/queryall')
         .then((response)=>{
           console.log("帖子加载完毕")
           if (response.code==="200"){

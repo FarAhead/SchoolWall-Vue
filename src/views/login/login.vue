@@ -75,7 +75,7 @@ export default {
               location.reload()
             }
           } else if (this.user.type==="organization"){    //社团组织
-            this.request.post("https://mock.apifox.cn/m2/3303344-0-default/111733082",{
+            this.request.post("login/org",{
               body:{
                 zid:this.user.uid,
                 zpwd:this.user.password
@@ -95,7 +95,7 @@ export default {
                 })
 
           } else { //学生个人
-            this.request.post("https://mock.apifox.cn/m2/3303344-0-default/111435518?uid=921107820244",{
+            this.request.post("login/user",{
               body:{
                 uid:this.user.uid,
                 upwd:this.user.password
