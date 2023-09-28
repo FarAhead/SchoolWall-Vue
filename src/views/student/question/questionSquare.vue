@@ -55,6 +55,8 @@
 <script>
 import questionItem from "@/components/card/questionItem.vue";
 import studentInfo from "@/store/modules/studentInfo";
+import {getDateTime} from "@/utils/getDateTime";
+
 export default {
   name: "questionSquare",
   components:{
@@ -90,6 +92,20 @@ export default {
   },
 
   methods:{
+    getUserName(){
+      for(let i=0;i<this.questions.length;i++){
+        const question = this.questions[i];
+        //console.log("当前answer的uid："+answer.uid)
+        this.request.post("user/query1",{
+          uid:question.uid
+        })
+            .then(res=>{
+              //见下文，一定要用$set方法！
+              this.$set(this.questions[i], 'quser', res.data.uname);
+              //console.log(this.answers[i].uname)
+            })
+      }
+    },
     submitForm(formName){
       this.$refs["askForm"].validate((valid)=>{
         if (valid){
@@ -97,7 +113,7 @@ export default {
               uid:studentInfo.state.stuInfo.uid,
               qtitle:this.askForm.askTitle,
               qcontent:this.askForm.askContent,
-              qtime:this.getDateTime(),
+              qtime:getDateTime,
               qlabel:1
           })
               .then((response)=>{
@@ -113,23 +129,6 @@ export default {
         }
       })
     },
-    getDateTime() {
-      var _this = this;
-      let yy = new Date().getFullYear();
-      let mm = new Date().getMonth() + 1;
-      let dd = new Date().getDate();
-      let hh = new Date().getHours();
-      let mf =
-          new Date().getMinutes() < 10
-              ? "0" + new Date().getMinutes()
-              : new Date().getMinutes();
-      let ss =
-          new Date().getSeconds() < 10
-              ? "0" + new Date().getSeconds()
-              : new Date().getSeconds();
-      let gettime = yy + "-" + mm + "-" + dd + " " + hh + ":" + mf + ":" + ss;
-      return gettime;
-    },
   },
 
   mounted() {
@@ -139,8 +138,11 @@ export default {
           console.log("帖子加载完毕")
           if (response.code==="200"){
             this.questions = response.data;
+            this.getUserName();
           }
         })
+
+
   }
 }
 </script>

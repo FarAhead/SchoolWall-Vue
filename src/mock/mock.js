@@ -29,13 +29,17 @@ export const mockPaths = {
     "question/coll" : "https://mock.apifox.cn/m2/3303344-0-default/113054327",
     //取消收藏帖子
     "question/uncoll" : "https://mock.apifox.cn/m2/3303344-0-default/113054327",
+    //回答帖子
+    "answer/reply" : "https://mock.apifox.cn/m2/3303344-0-default/113038498",
+    //根据uid查询uname和uavatar
+    "user/query1" : "https://mock.apifox.cn/m2/3303344-0-default/113629563",
 
     //查询当前帖子自己是否收藏/点赞
     //点赞未收藏
     "question/find1" : "https://mock.apifox.cn/m2/3303344-0-default/113649459",
     //查询所有商品
     "commodity/query" : "https://mock.apifox.cn/m2/3303344-0-default/113738514",
-
+    //
 
     //admin部分
     //查询所有用户
