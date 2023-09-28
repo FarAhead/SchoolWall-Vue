@@ -57,12 +57,12 @@
               <div class="answer-name">
                 {{ answer.uid }}
               </div>
-              </div>
-              <div class="answer-text">
-                {{answer.acontent}}
-              </div>
+            </div>
+            <div class="answer-text">
+              {{answer.acontent}}
             </div>
           </div>
+        </div>
       </div>
     </el-collapse-transition>
   </el-card>
@@ -107,9 +107,7 @@ export default {
     fetchAnswer(){
       // answer/query
       this.request.post('answer/query',{
-        body:{
           qid:this.$props.question.qid
-        }
       })
           .then((response)=>{
             if(response.code==="200"){
@@ -124,10 +122,8 @@ export default {
     likeQuestion(){
       if (this.isLiked === false){
         this.request.post("question/like",{
-          body:{
             uid:studentInfo.state.stuInfo.uid,
             qid:this.$props.question.qid
-          }
         })
             .then((response)=>{
               if(response.code === "200"){
@@ -142,10 +138,8 @@ export default {
             })
       } else {  //取消点赞
         this.request.post("question/unlike",{
-          body:{
             uid:studentInfo.state.stuInfo.uid,
             qid:this.$props.question.qid
-          }
         })
             .then((response)=>{
               if (response.code === "200"){
@@ -163,10 +157,8 @@ export default {
     collectQuestion(){
       if (this.isCollected === false){
         this.request.post("question/coll",{
-          body:{
             uid:studentInfo.state.stuInfo.uid,
             qid:this.$props.question.qid
-          }
         })
             .then((response)=>{
               if(response.code === "200"){
@@ -179,10 +171,8 @@ export default {
             })
       } else {  //取消收藏
         this.request.post("question/uncoll",{
-          body:{
             uid:studentInfo.state.stuInfo.uid,
             qid:this.$props.question.qid
-          }
         })
             .then((response)=>{
               if (response.code === "200"){
@@ -198,10 +188,8 @@ export default {
   mounted() {
     if(studentInfo.state.stuInfo ){
       this.request.post("question/find1",{
-        body:{
           qid:this.$props.question.qid,
           uid:studentInfo.state.stuInfo.uid
-        }
       })
           .then((response)=>{
             if(response.code === "200"){

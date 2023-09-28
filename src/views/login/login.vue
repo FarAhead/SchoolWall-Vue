@@ -76,10 +76,8 @@ export default {
             }
           } else if (this.user.type==="organization"){    //社团组织
             this.request.post("login/org",{
-              body:{
                 zid:this.user.uid,
                 zpwd:this.user.password
-              }
             })
                 .then((response)=>{
                     if (response.code === "200"){   //成功登录
@@ -96,10 +94,8 @@ export default {
 
           } else { //学生个人
             this.request.post("login/user",{
-              body:{
                 uid:this.user.uid,
                 upwd:this.user.password
-              }
             })
                 .then((response)=>{
                   if (response.code === "200"){   //成功登录

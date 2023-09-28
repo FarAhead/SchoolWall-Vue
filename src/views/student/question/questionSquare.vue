@@ -94,13 +94,11 @@ export default {
       this.$refs["askForm"].validate((valid)=>{
         if (valid){
           this.request.post("question/add",{
-            body:{
               uid:studentInfo.state.stuInfo.uid,
               qtitle:this.askForm.askTitle,
               qcontent:this.askForm.askContent,
               qtime:this.getDateTime(),
               qlabel:1
-            }
           })
               .then((response)=>{
                 if (response.code === "200"){

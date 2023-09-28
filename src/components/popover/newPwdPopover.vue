@@ -21,10 +21,8 @@ export default {
   methods:{
     submit(){
       this.request.post("user/updpwd",{
-        body:{
           uid:this.$props.uid,
           upwd:this.newPwd
-        }
       })
           .then(res=>{
             if(res.code==="200"){

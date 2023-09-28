@@ -107,10 +107,8 @@ export default {
     },
     changePwd(row) {
       this.request.post("user/updpwd",{
-        body:{
           uid:row.uid,
           upwd:this.newPwd
-        }
       })
           .then(res=>{
             row.visible1 = false;
@@ -128,9 +126,7 @@ export default {
 
     deleteUser(row){
       this.request.post("user/delete",{
-        body:{
           uid:row.uid
-        }
       })
           .then(res=>{
             if (res.code ==="200"){
