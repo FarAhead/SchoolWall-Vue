@@ -1,6 +1,6 @@
 <template>
-<div>
-  <el-col :span="18">
+<el-row :gutter="20">
+  <el-col :span="18" >
     <div class="grid-content bg-purple">
 
       <div class="channel-container" style="display: flex">
@@ -48,7 +48,7 @@
 
 
 
-</div>
+</el-row>
 
 </template>
 
@@ -64,15 +64,20 @@ export default {
   },
   data(){
     return {
+      //是否显示提问框
       isAskShow:false,
+
+      //提问表单
       askForm:{
         askTitle:'',
         askContent:''
       },
 
+      //帖子的列表
       questions:[
         {
           qid:0,
+          uid:"",
           qtitle:"问题名称",
           qcontent:"问题的具体描述",
           quser:"用户姓名",
@@ -86,7 +91,6 @@ export default {
       rules:{
         askTitle: [ { required: true, message: "账号不能为空！", trigger: "blur" },],
         askContent: [{required:true,message:"请填写内容",trigger:"blur"},],
-
       },
     }
   },
@@ -106,6 +110,8 @@ export default {
             })
       }
     },
+
+    //提交我的提问
     submitForm(formName){
       this.$refs["askForm"].validate((valid)=>{
         if (valid){
@@ -141,8 +147,6 @@ export default {
             this.getUserName();
           }
         })
-
-
   }
 }
 </script>

@@ -1,12 +1,13 @@
 <template>
   <el-col :span="5">
     <el-card :body-style="{ padding: '0px' }">
-      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+      <el-image :src=order.cavatar class="image"></el-image>
       <div style="padding: 14px;">
         <span>{{ order.cname }}</span>
+        <div class="commodity-price">￥{{order.price}}</div>
         <div class="bottom clearfix">
           <time class="time">{{ order.ctime }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
+          <el-button size="medium"  class="button">我想要</el-button>
         </div>
       </div>
     </el-card>
@@ -18,7 +19,7 @@ export default {
   name: "orderItem",
   data() {
     return {
-      currentDate: new Date()
+
     };
   },
   props:['order'],
@@ -31,13 +32,7 @@ export default {
   color: #999;
 }
 
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-}
-
 .button {
-  padding: 0;
   float: right;
 }
 
@@ -46,13 +41,6 @@ export default {
   display: block;
 }
 
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
 
-.clearfix:after {
-  clear: both
-}
+
 </style>

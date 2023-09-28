@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import stuHomeNav from "@/views/student/stuHomeNav.vue";
+import stuHomeNav from "@/views/student/navigation/stuHomeNav.vue";
 import orgHomeNav from "@/views/organization/orgHomeNav.vue";
 export default {
   name: "index",

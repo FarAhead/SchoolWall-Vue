@@ -21,7 +21,7 @@ import myInfo from "@/components/userInfo/index.vue"
 export default {
   data() {
     return {
-      activeName: 'first',
+      activeName: 'myQuestion',
       currentComponent:'myQuestion'
     };
   },

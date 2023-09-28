@@ -14,9 +14,12 @@ export const mockPaths = {
 
     //查询所有帖子
     "question/queryall" : "https://mock.apifox.cn/m2/3303344-0-default/111528940",
+    //查询自己的所有提问
+    "question/queryself" : "https://mock.apifox.cn/m2/3303344-0-default/113408321",
 
     //查询某帖子下的所有回答
     "answer/query" : "https://mock.apifox.cn/m2/3303344-0-default/113055384",
+
 
     //发布帖子
     "question/add" : "https://mock.apifox.cn/m2/3303344-0-default/111477238",
@@ -31,15 +34,24 @@ export const mockPaths = {
     "question/uncoll" : "https://mock.apifox.cn/m2/3303344-0-default/113054327",
     //回答帖子
     "answer/reply" : "https://mock.apifox.cn/m2/3303344-0-default/113038498",
+    //删除帖子
+    "question/del" : "https://mock.apifox.cn/m2/3303344-0-default/112357694",
+
+
+
     //根据uid查询uname和uavatar
     "user/query1" : "https://mock.apifox.cn/m2/3303344-0-default/113629563",
 
     //查询当前帖子自己是否收藏/点赞
     //点赞未收藏
     "question/find1" : "https://mock.apifox.cn/m2/3303344-0-default/113649459",
+    //浏览量+1
+    "question/browse" : "https://mock.apifox.cn/m2/3303344-0-default/112337055",
+
+
+
     //查询所有商品
     "commodity/query" : "https://mock.apifox.cn/m2/3303344-0-default/113738514",
-    //
 
     //admin部分
     //查询所有用户

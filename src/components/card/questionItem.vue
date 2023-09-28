@@ -1,5 +1,6 @@
 <template>
-  <el-card class="content-item-content" shadow="hover" style="margin: 20px;background-color:aliceblue">
+  <el-card class="content-item-content" shadow="hover" style="margin: 20px;background-color:aliceblue" >
+    <div ref="questionItem">
     <div class="content-info" style="display: grid; grid-template-columns: 150px 1fr">
       <div class="questioner-info">
         <div class="questioner-avatar" style="justify-items: center;margin: 10px">
@@ -11,9 +12,9 @@
         <div class="question-title">{{question.qtitle}}</div>
         <div class="question-content">
           <div class="question-content-text">
-            {{question.qcontent}}
+            {{shortContent}}
           </div>
-          <el-button class="show-all-content" @click="">展开全文</el-button>
+          <el-button v-if="showButton" type="text" class="show-all-content" @click="expandContent">展开全文</el-button>
         </div>
       </div>
     </div>
@@ -23,6 +24,7 @@
         <el-button icon="el-icon-search" @click="expandAnswer">评论 {{question.qanswercount}}</el-button>
         <el-button icon="el-icon-search" @click="collectQuestion" :type="isCollected ? 'warning':'default'">{{isCollected?'已收藏':'收藏'}}</el-button>
         <el-button icon="el-icon-search" >举报</el-button>
+        <el-button icon="el-icon-search" v-if="this.$props.isSelf===true" type="danger" @click="deleteQuestion">删除帖子</el-button>
       </div>
       <div class="comment-count">
         <span>{{question.qtime}}发布&nbsp&nbsp&nbsp</span>
@@ -65,6 +67,7 @@
         </div>
       </div>
     </el-collapse-transition>
+    </div>
   </el-card>
 </template>
 
@@ -76,12 +79,14 @@ import {getDateTime} from "@/utils/getDateTime";
 
 export default {
   name: "question",
-  props:['question'],
+  props:['question','isSelf'],
   data() {
     return {
       showAnswer:false,
       isLiked:false,
       isCollected:false,
+      isExpanded:false,
+      observer:null,
       text: '',
       textarea: '',
       answers:[
@@ -96,7 +101,23 @@ export default {
       ]
     }
   },
+  computed:{
+    shortContent(){
+      if (this.isExpanded || this.$props.question.qcontent.length <= 100) {
+        return this.$props.question.qcontent;
+      } else {
+        return this.$props.question.qcontent.slice(0, 100) + '...';
+      }
+    },
+    showButton() {
+      return this.$props.question.qcontent.length > 100 && !this.isExpanded;
+    }
+  },
   methods:{
+    //展开全文
+    expandContent() {
+      this.isExpanded = true;
+    },
 
     expandAnswer() {
       this.showAnswer = !this.showAnswer; // 切换状态
@@ -237,15 +258,44 @@ new bing的回答:
       }
     },
 
+    //增加浏览量
+    increaseViewCount(questionId){
+      this.request.post("question/browse",{
+        qid:questionId
+      })
+      .then(res=>{
+        if (res.code === "200") {
+          console.log("id为"+questionId+"的帖子浏览量+1")
+        } else {
+          console.log("浏览量增加失败");
+        }
+      })
+    },
+
+    //删除帖子（仅限查看自己的帖子）
+    deleteQuestion(){
+      if(studentInfo.state.stuInfo.uid === this.$props.question.uid){
+        this.request.post("question/del",{
+          qid:this.question.qid
+        })
+            .then(res=>{
+              if (res.code === "200"){
+                this.$message.success("删除成功！");
+                location.reload();
+              } else {
+                this.$message.error("删除失败！")
+              }
+            })
+      } else {
+        this.$message.error("只有帖子作者可以删除帖子哦~")
+      }
+    }
+
   },
 
-  // async created() {
-  //   // 在组件创建时获取用户名，并更新answers中的数据
-  //   await this.fetchAnswer();
-  //   await this.fetchUserNames();
-  // },
 
   mounted() {
+
     if(studentInfo.state.stuInfo ){
       this.request.post("question/find1",{
           qid:this.$props.question.qid,
@@ -265,7 +315,31 @@ new bing的回答:
       this.$message.error("当前用户未登录，请先登录！")
     }
 
-  }
+
+    //当前item进入浏览器窗口使开始观察，实现浏览量的增加
+    this.$nextTick(() => {
+      this.observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.increaseViewCount(this.question.qid);
+            // 取消观察
+            this.observer.unobserve(entry.target);
+          }
+        });
+      });
+
+      console.log("1111111111111111111")
+      // 开始观察
+      this.observer.observe(this.$refs.questionItem);
+    });
+  },
+
+  beforeDestroy() {
+    // 组件销毁前取消观察
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  },
 }
 </script>
 
