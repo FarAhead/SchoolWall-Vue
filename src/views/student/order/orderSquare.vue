@@ -20,10 +20,12 @@
 
       <el-form-item label="商品图片">
         <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
+            ref="uploadImg"
+            action="http://localhost:8088/commodity/upload111"
             :limit=1
             :auto-upload="false"
             list-type="picture-card"
+            :on-change="handleChanged"
             :on-preview="handlePictureCardPreview"
             :on-remove="handleRemove">
           <i class="el-icon-plus"></i>
@@ -34,32 +36,14 @@
       </el-form-item>
 
       <el-form-item label="商品种类">
-        <el-tag
-            :key="tag"
-            v-for="tag in dynamicTags"
-            closable
-            :disable-transitions="false"
-            @close="handleTagClose(tag)">
-          {{tag}}
-        </el-tag>
-        <el-input
-            class="input-new-tag"
-            v-if="inputVisible"
-            v-model="uploadForm.ctype"
-            ref="saveTagInput"
-            size="small"
-            @keyup.enter.native="handleInputConfirm"
-            @blur="handleInputConfirm"
-        >
-        </el-input>
-        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+        <el-input v-model="uploadForm.ctype"></el-input>
       </el-form-item>
-
     </el-form>
+
     <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="uploadCommodity">确 定</el-button>
-  </span>
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="uploadCommodity">确 定</el-button>
+    </span>
   </el-dialog>
 
   <el-row :gutter="40">
@@ -79,11 +63,9 @@ export default {
       //是否显示上传对话框
       dialogVisible:false,
 
-      //表单里的tag相关
-      dynamicTags: ['书籍' ],
-      inputVisible: false,
       uploadDialogVisible: false,
-      inputValue: '',
+
+
 
       //发布商品的表单
       uploadForm:{
@@ -92,7 +74,7 @@ export default {
         cavatar:'',
         price:0,
         ctime:'',
-        ctype:0,
+        ctype:'',
         fileToUpload:null,
         imageUrl:'',
       },
@@ -134,6 +116,27 @@ export default {
           .catch(_ => {});
     },
 
+    //上传图片
+    uploadImage(cid){
+      //this.$refs.uploadImg.submit();
+      let formData = new FormData();
+      formData.append("cid",cid);
+      formData.append("file",this.uploadForm.fileToUpload);
+      this.request.post("commodity/upload",formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        //cid:cid
+      })
+          .then(res=>{
+            if (res.code === "200"){
+              console.log("图片上传成功");
+            } else {
+              console.log("图片上传失败");
+            }
+          })
+    },
+
     //上传商品信息
     async uploadCommodity(){
       try {
@@ -145,20 +148,18 @@ export default {
           ctime:getDateTime(),
           ctype:this.uploadForm.ctype
         })
-        //新建formData对象
-        const formData = new formData();
-        //添加一些表单数据
-        formData.append('uid',studentInfo.state.stuInfo.uid)
-        formData.append('cname',this.uploadForm.cname);
-        formData.append('description', this.uploadForm.description);
-        formData.append('price', this.uploadForm.price);
-        //将图片文件添加到formData
-        if(this.uploadForm.fileToUpload){
-          formData.append('cavatar',this.uploadForm.fileToUpload);
-        }
-        formData.append('ctime',new Date().getTime());
-        formData.append('ctype',this.uploadForm.ctype);
-        this.dialogVisible = false
+            .then(res=>{
+              if (res.code==="200"){
+                this.uploadImage(res.data.cid)
+                this.$message.success("上传商品信息成功！")
+                this.dialogVisible=false;
+                this.$refs['commodityUpload'].resetFields();
+
+              } else {
+                this.$message.error("上传商品信息失败！")
+              }
+            })
+
       } catch (error){
         console.error("上传失败：",error);
         this.$message.error("上传失败");
@@ -173,26 +174,12 @@ export default {
       this.uploadForm.imageUrl = file.url;
       this.dialogVisible = true;
     },
+    handleChanged(file){
+      this.uploadForm.fileToUpload = file.raw;
+      console.log("图片信息已经传到了uploadForm.fileToUpload")
 
+    },
 
-    //tag相关方法
-    handleTagClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-    },
-    showInput() {
-      this.inputVisible = true;
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-    },
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      if (inputValue) {
-        this.dynamicTags.push(inputValue);
-      }
-      this.inputVisible = false;
-      this.inputValue = '';
-    }
   },
 
   mounted() {

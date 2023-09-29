@@ -27,6 +27,15 @@ import studentInfo from "@/store/modules/studentInfo";
 import organizationInfo from "@/store/modules/organizationInfo";
 export default {
   name: "Header",
+  data(){
+    return{
+      avatar:"",
+      input:{
+
+      }
+    }
+  },
+
   computed:{
     userType(){
       if(studentInfo.state.isStuLogged){
@@ -47,17 +56,15 @@ export default {
       return organizationInfo.state.orgInfo.zstudent
     }
   },
-
-  data(){
-    return{
-      input:{
+  methods:{
+    getAvatar(){
+      if(this.userType === "student"){
 
       }
     }
   },
-  methods:{
 
-  }
+
 
 }
 </script>

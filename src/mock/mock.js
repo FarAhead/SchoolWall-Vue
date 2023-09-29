@@ -52,6 +52,12 @@ export const mockPaths = {
 
     //查询所有商品
     "commodity/query" : "https://mock.apifox.cn/m2/3303344-0-default/113738514",
+    //上传商品信息
+    "commodity/add" : "https://mock.apifox.cn/m2/3303344-0-default/113620932",
+    //上传商品图片
+    "commodity/upload" : "https://mock.apifox.cn/m2/3303344-0-default/113885287",
+    //买特定的商品
+    "commodity/buy" : "https://mock.apifox.cn/m2/3303344-0-default/113846120",
 
     //admin部分
     //查询所有用户

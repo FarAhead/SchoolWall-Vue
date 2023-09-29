@@ -96,7 +96,7 @@ export default {
   },
 
   methods:{
-    getUserName(){
+    getUserNameAvatar(){
       for(let i=0;i<this.questions.length;i++){
         const question = this.questions[i];
         //console.log("当前answer的uid："+answer.uid)
@@ -106,6 +106,7 @@ export default {
             .then(res=>{
               //见下文，一定要用$set方法！
               this.$set(this.questions[i], 'quser', res.data.uname);
+              this.$set(this.questions[i], 'qavatar', res.data.uavatar);
               //console.log(this.answers[i].uname)
             })
       }
@@ -144,7 +145,7 @@ export default {
           console.log("帖子加载完毕")
           if (response.code==="200"){
             this.questions = response.data;
-            this.getUserName();
+            this.getUserNameAvatar();
           }
         })
   }

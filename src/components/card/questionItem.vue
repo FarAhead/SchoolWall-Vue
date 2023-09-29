@@ -4,7 +4,7 @@
     <div class="content-info" style="display: grid; grid-template-columns: 150px 1fr">
       <div class="questioner-info">
         <div class="questioner-avatar" style="justify-items: center;margin: 10px">
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" :size="70"></el-avatar>
+          <el-avatar :src=question.qavatar :size="70"></el-avatar>
         </div>
         <div class="questioner-name"><span>{{question.quser}}</span></div>
       </div>
@@ -52,12 +52,12 @@
           <div class="answer-list-item" v-for="answer in answers" :key="answer.aid" style="display: grid;grid-template-columns: 80px 1fr" >
             <div class="answer-info">
               <div class="answer-avatar">
-                <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" :size="50"></el-avatar>
+                <el-avatar :src=answer.aavatar :size="50"></el-avatar>
               </div>
             </div>
             <div class="answer-content">
               <div class="answer-name">
-                {{ answer.uname || "未知用户"}}
+                {{ answer.aname || "未知用户" }}
               </div>
               <div class="answer-text">
                 {{answer.acontent}}
@@ -93,7 +93,8 @@ export default {
         {
           aid:"",
           uid:"",
-          uname:"",
+          aname:"",
+          aavatar:"",
           acontent:"",
           atime:'',
           alikecount:'',
@@ -102,6 +103,7 @@ export default {
     }
   },
   computed:{
+    //显示全文相关
     shortContent(){
       if (this.isExpanded || this.$props.question.qcontent.length <= 100) {
         return this.$props.question.qcontent;
@@ -151,7 +153,8 @@ export default {
         })
             .then(res=>{
               //见下文，一定要用$set方法！
-              this.$set(this.answers[i], 'uname', res.data.uname);
+              this.$set(this.answers[i], 'aname', res.data.uname);
+              this.$set(this.answers[i], 'aavatar', res.data.uavatar);
               //console.log(this.answers[i].uname)
             })
       }
@@ -328,7 +331,6 @@ new bing的回答:
         });
       });
 
-      console.log("1111111111111111111")
       // 开始观察
       this.observer.observe(this.$refs.questionItem);
     });
