@@ -38,7 +38,7 @@
           <el-menu-item index="questionManage">问题信息管理</el-menu-item>
         </el-submenu>
 
-        <el-menu-item index="logout">
+        <el-menu-item @click="logout">
           <i class="el-icon-setting"></i>
           <span slot="title">退出登录</span>
         </el-menu-item>
@@ -49,6 +49,9 @@
 </template>
 
 <script>
+import organizationInfo from "@/store/modules/organizationInfo";
+import studentInfo from "@/store/modules/studentInfo";
+
 export default {
   name: "Aside",
   data(){
@@ -62,6 +65,15 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+    logout(){
+      // 清除用户信息
+      organizationInfo.commit('CLEAR_ORG_INFO');
+      studentInfo.commit('CLEAR_STU_INFO');
+      // 清除本地存储中的用户信息
+      //localStorage.removeItem('userInfo');
+      // 其他退出登录操作，如重定向到登录页等
+      this.$router.push("/login");
     }
   }
 }

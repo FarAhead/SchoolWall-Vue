@@ -3,20 +3,27 @@
 
   <div class="left">
     <el-button type="primary" icon="el-icon-s-operation"></el-button>
-    左侧按钮，实现侧边栏伸缩
+
   </div>
 
-  <div class="search">
-    这是放在中间的内容，还没想好
+  <div class="search" style="display: flex">
+    <span><el-input v-model="search" placeholder="请输入内容"></el-input></span>
+    <span> <el-button icon="el-icon-search" ></el-button></span>
 
   </div>
 
 <div class="right">
   <div class="user-info" style="display: flex">
-    <div v-if="userType==='student'"><span>欢迎 {{stuName}} 同学</span></div>
-    <div v-else-if="userType==='organization'"><span>欢迎 {{orgName}} 的 {{orgUserName}}</span></div>
-    <div v-else><span>请先登录</span></div>
-    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+    <div v-if="userType==='student'">
+      <span>欢迎 {{stuName}} 同学</span>
+      <el-avatar :src=studentInfo.state.stuInfo.uavatar></el-avatar>
+    </div>
+    <div v-else-if="userType==='organization'">
+      <span>欢迎 {{orgName}} 的 {{orgUserName}}</span>
+      <el-avatar :src="organizationInfo.state.orgInfo.zavatar"></el-avatar>
+    </div>
+    <div v-else><span>admin</span></div>
+
   </div>
 </div>
 </div>
@@ -29,14 +36,19 @@ export default {
   name: "Header",
   data(){
     return{
+      search:"",
       avatar:"",
-      input:{
 
-      }
     }
   },
 
   computed:{
+    organizationInfo() {
+      return organizationInfo
+    },
+    studentInfo() {
+      return studentInfo
+    },
     userType(){
       if(studentInfo.state.isStuLogged){
         return 'student';

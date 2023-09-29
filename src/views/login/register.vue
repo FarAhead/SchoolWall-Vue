@@ -41,6 +41,10 @@
           <el-input v-model="newUser.zstudent"></el-input>
         </el-form-item>
 
+        <el-form-item label="联系电话" prop="zphone" v-if="this.newUser.utype==='organization'">
+          <el-input v-model="newUser.zphone"></el-input>
+        </el-form-item>
+
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="newUser.email"></el-input>
         </el-form-item>
@@ -100,6 +104,7 @@ export default {
         uname: "",
         zname:"",
         zstudent:"",
+        zphone:"",
         email:"",
         usex:"",
         utype:"student",
@@ -112,6 +117,7 @@ export default {
         email: [{ required: true, message: "邮箱不能为空", trigger: "blur" }],
         zname: [{ required: true, message: "请填写", trigger: "blur" }],
         zstudent: [{ required: true, message: "请填写", trigger: "blur" }],
+        zphone: [{ required: true, message: "请填写", trigger: "blur" }],
         usex: [{ required: true, message: "请填写", trigger: "blur" }],
         zid: [{ required: true, message: "请填写"}],
         upwd: [{ required: true, validator: validatePass, trigger: "blur" }],
@@ -123,7 +129,33 @@ export default {
     submitForm() {
       this.$refs["registerForm"].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          if (this.newUser.utype === 'student'){
+              this.request.post("user/insert",{
+                uid:this.newUser.uid,
+                uname:this.newUser.uname,
+                usex:this.newUser.usex,
+                upwd:this.newUser.upwd,
+                umail:this.newUser.email,
+                utype: 2
+              })
+          } else {
+            this.request.post("user/oinsert",{
+              zname:this.newUser.zname,
+              zstudent:this.newUser.zstudent,
+              uid:this.newUser.zid,
+              zphone: this.newUser.zphone,
+              upwd:this.newUser.upwd,
+              zmail:this.newUser.email
+            })
+                .then(res=>{
+                  if (res.code==="200"){
+                    this.$message.success("组织注册成功")
+                  } else {
+                    this.$message.error("组织注册失败，请联系管理员")
+                  }
+                })
+          }
+
         } else {
           console.log("error submit!!");
           return false;

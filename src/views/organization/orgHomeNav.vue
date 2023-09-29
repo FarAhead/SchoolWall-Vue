@@ -1,22 +1,37 @@
 <template>
-  <el-tabs v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane label="用户管理" name="first">这是组织的navbar</el-tab-pane>
-    <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-    <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-    <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
-  </el-tabs>
+  <div>
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="发布公告" name="announceNews"></el-tab-pane>
+      <el-tab-pane label="公告管理" name="ManageNews"></el-tab-pane>
+      <el-tab-pane label="组织信息" name="ManageInfo"></el-tab-pane>
+    </el-tabs>
+    <div class="nav-content">
+      <component :is="currentComponent"></component>
+    </div>
+
+  </div>
 </template>
 
 <script>
+import announceNews from "@/views/organization/news/announceNews.vue";
+import ManageNews from "@/views/organization/news/ManageNews.vue";
+import ManageInfo from "@/views/organization/ManageInfo.vue";
+
 export default {
   data() {
     return {
-      activeName: 'second'
+      activeName: 'ManageInfo',
+      currentComponent:'manageInfo'
     };
   },
+  components:{
+    announceNews,
+    ManageInfo,
+    ManageNews
+  },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
+    handleClick(tab) {
+      this.currentComponent = tab.name
     }
   }
 }

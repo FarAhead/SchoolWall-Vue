@@ -1,10 +1,39 @@
 <template>
-<h1>这是举报审核</h1>
+<div>
+  <answer-item v-for="answer in answers" :key="answer.aid" :answer="answer"></answer-item>
+</div>
 </template>
 
 <script>
+import answerItem from "@/components/card/answerItem.vue";
 export default {
-  name: "reportVerify"
+  name: "reportVerify",
+  data(){
+    return{
+      answers:{
+        aid:0,
+        qid:0,
+        uid:0,
+        acontent:"",
+        atime:""
+      },
+    }
+  },
+  components:{
+    answerItem
+  },
+  methods:{
+    fetchReport(){
+      this.request.post("answer/query2")
+          .then(res=>{
+            this.answers = res.data;
+          })
+    }
+
+  },
+  mounted() {
+    this.fetchReport()
+  }
 }
 </script>
 

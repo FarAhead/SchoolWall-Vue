@@ -4,9 +4,9 @@
     <div class="content-info" style="display: grid; grid-template-columns: 150px 1fr">
       <div class="questioner-info">
         <div class="questioner-avatar" style="justify-items: center;margin: 10px">
-          <el-avatar :src=question.qavatar :size="70"></el-avatar>
+          <el-avatar :src=question.user.uavatar :size="70"></el-avatar>
         </div>
-        <div class="questioner-name"><span>{{question.quser}}</span></div>
+        <div class="questioner-name"><span>{{question.user.uname}}</span></div>
       </div>
       <div class="questiion-info">
         <div class="question-title">{{question.qtitle}}</div>

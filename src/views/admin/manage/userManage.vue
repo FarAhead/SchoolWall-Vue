@@ -3,10 +3,9 @@
   <div class="user-operation">
 
   </div>
-
   <el-table
       :data="tableData"
-      style="width: 100% ;height: 80vh">
+      style="width: 100% ;height: 100%">
     <el-table-column label="学号" width="180">
       <template slot-scope="scope">
         <span style="margin-left: 10px">{{ scope.row.uid }}</span>
@@ -120,9 +119,7 @@ export default {
             }
           })
     },
-    handleDelete(index, row) {
-      console.log(index, row);
-    },
+
 
     deleteUser(row){
       this.request.post("user/delete",{

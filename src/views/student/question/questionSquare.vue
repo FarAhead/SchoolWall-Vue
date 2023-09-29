@@ -80,7 +80,10 @@ export default {
           uid:"",
           qtitle:"问题名称",
           qcontent:"问题的具体描述",
-          quser:"用户姓名",
+          user:{
+            uname:"",
+            uavatar:"",
+          },
           qavatar:"用户头像url",
           qbrowsecount:666,
           qlikecount:15,
@@ -96,21 +99,21 @@ export default {
   },
 
   methods:{
-    getUserNameAvatar(){
-      for(let i=0;i<this.questions.length;i++){
-        const question = this.questions[i];
-        //console.log("当前answer的uid："+answer.uid)
-        this.request.post("user/query1",{
-          uid:question.uid
-        })
-            .then(res=>{
-              //见下文，一定要用$set方法！
-              this.$set(this.questions[i], 'quser', res.data.uname);
-              this.$set(this.questions[i], 'qavatar', res.data.uavatar);
-              //console.log(this.answers[i].uname)
-            })
-      }
-    },
+    // getUserNameAvatar(){
+    //   for(let i=0;i<this.questions.length;i++){
+    //     const question = this.questions[i];
+    //     //console.log("当前answer的uid："+answer.uid)
+    //     this.request.post("user/query1",{
+    //       uid:question.uid
+    //     })
+    //         .then(res=>{
+    //           //见下文，一定要用$set方法！
+    //           this.$set(this.questions[i], 'quser', res.data.uname);
+    //           this.$set(this.questions[i], 'qavatar', res.data.uavatar);
+    //           //console.log(this.answers[i].uname)
+    //         })
+    //   }
+    // },
 
     //提交我的提问
     submitForm(formName){
@@ -145,7 +148,7 @@ export default {
           console.log("帖子加载完毕")
           if (response.code==="200"){
             this.questions = response.data;
-            this.getUserNameAvatar();
+            //this.getUserNameAvatar();
           }
         })
   }

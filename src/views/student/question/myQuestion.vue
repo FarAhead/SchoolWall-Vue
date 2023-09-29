@@ -22,8 +22,10 @@ export default {
           qid:0,
           qtitle:"问题名称",
           qcontent:"问题的具体描述",
-          quser:"用户姓名",
-          qavatar:"用户头像url",
+          user:{
+            uname:"",
+            uavatar:""
+          },
           qbrowsecount:666,
           qlikecount:15,
           qanswercount:12,
@@ -33,13 +35,13 @@ export default {
     }
   },
   methods:{
-    getUserName() {
-      for(let i=0;i<this.questions.length;i++){
-        const question = this.questions[i];
-        //console.log("当前answer的uid："+answer.uid)
-        this.$set(this.questions[i],'quser',studentInfo.state.stuInfo.uname)
-      }
-    }
+    // getUserName() {
+    //   for(let i=0;i<this.questions.length;i++){
+    //     const question = this.questions[i];
+    //     //console.log("当前answer的uid："+answer.uid)
+    //     this.$set(this.questions[i],'quser',studentInfo.state.stuInfo.uname)
+    //   }
+    // }
   },
   mounted() {
     this.request.post('question/queryself',{
@@ -48,7 +50,7 @@ export default {
         .then((response)=>{
           if (response.code==="200"){
             this.questions = response.data;
-            this.getUserName();
+            //this.getUserName();
           }
         })
   }

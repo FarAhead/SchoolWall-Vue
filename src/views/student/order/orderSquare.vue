@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import orderItem from "@/components/card/orderItem.vue";
+import orderItem from "@/components/card/commodityItem.vue";
 import studentInfo from "@/store/modules/studentInfo";
 import {getDateTime} from "@/utils/getDateTime";
 export default {

@@ -20,12 +20,15 @@ export default {
           qid:0,
           qtitle:"问题名称",
           qcontent:"问题的具体描述",
-          quser:"用户姓名",
-          qavatar:"用户头像url",
-          qbrowsecount:666,
-          qlikecount:15,
-          qanswercount:12,
           qtime:"",
+          user:{
+            uname:"",
+            uavatar:""
+          },
+          qbrowsecount:0,
+          qlikecount:0,
+          qanswercount:0,
+
         },
       ],
     }
@@ -36,13 +39,13 @@ export default {
     }
   },
   mounted() {
-    this.request.post('question/queryself',{
+    this.request.post('question/myfavorite',{
       uid:studentInfo.state.stuInfo.uid
     })
         .then((response)=>{
           if (response.code==="200"){
             this.questions = response.data;
-            this.getUserName();
+            //this.getUserName();
           }
         })
   }

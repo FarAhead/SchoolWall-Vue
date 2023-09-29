@@ -4,7 +4,7 @@
     <div class="home-header">
       <div class="home-user-info">
         <div class="home-user-avatar">
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" :size="60"></el-avatar>
+          <el-avatar :src="userAvatar" :size="60"></el-avatar>
         </div>
         <div class="home-user-name">
 
@@ -25,6 +25,8 @@
 <script>
 import stuHomeNav from "@/views/student/navigation/stuHomeNav.vue";
 import orgHomeNav from "@/views/organization/orgHomeNav.vue";
+import studentInfo from "@/store/modules/studentInfo";
+import organizationInfo from "@/store/modules/organizationInfo";
 export default {
   name: "index",
   components:{
@@ -35,6 +37,13 @@ export default {
   computed:{
     currentNavbar(){
       return this.uType === 'student'?'stuHomeNav':'orgHomeNav';
+    },
+    userAvatar(){
+      if (this.$props.uType === 'student'){
+        return studentInfo.state.stuInfo.uavatar;
+      } else {
+        return  organizationInfo.state.orgInfo.zavatar;
+      }
     }
   }
 }

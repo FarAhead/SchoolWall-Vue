@@ -76,7 +76,7 @@ export default {
             }
           } else if (this.user.type==="organization"){    //社团组织
             this.request.post("login/org",{
-                zid:this.user.uid,
+                uid:this.user.uid,
                 zpwd:this.user.password
             })
                 .then((response)=>{
@@ -102,6 +102,7 @@ export default {
                     this.$message.success("登录成功")
                     //localStorage.setItem('userInfo', JSON.stringify(response.data));
                     studentInfo.commit('SET_STU_INFO',response.data);
+                    console.log(studentInfo.state.stuInfo.uavatar);
                     this.$router.push("/student")
                   } else {
                     this.$message.error("用户名或密码错误")
