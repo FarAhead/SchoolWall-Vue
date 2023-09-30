@@ -113,7 +113,7 @@ export default {
     editContent(){
       this.request.post("notice/change",{
         nid:this.notice.nid,
-        content:this.inputContent
+        ncontent:this.inputContent
       })
           .then(res=>{
             if (res.code==="200"){
