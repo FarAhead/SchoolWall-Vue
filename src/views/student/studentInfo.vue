@@ -98,7 +98,7 @@ export default {
     uploadFile(uploadFile){
       let formData = new FormData();
       formData.append('uid',studentInfo.state.stuInfo.uid);
-      formData.append('file', uploadFile.file);
+      formData.append('uavatar', uploadFile.file);
 
       return this.request.post('user/upload',formData,{
         headers:{

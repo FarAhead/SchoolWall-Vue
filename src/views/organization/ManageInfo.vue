@@ -107,7 +107,7 @@ export default {
     uploadFile(uploadFile){
       let formData = new FormData();
       formData.append('uid',organizationInfo.state.orgInfo.uid);
-      formData.append('file', uploadFile.file);
+      formData.append('zavatar', uploadFile.file);
 
       return this.request.post('user/upload2',formData,{
         headers:{
