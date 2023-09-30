@@ -33,7 +33,7 @@ export default {
   methods:{
     fetchMySold(){
       this.request.post("order/query2",{
-        uid:studentInfo.state.stuInfo.uid
+        osid:studentInfo.state.stuInfo.uid
       })
           .then(res=> {
             if(res.code==="200"){

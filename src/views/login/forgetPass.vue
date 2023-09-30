@@ -68,7 +68,7 @@ export default {
   methods:{
     submitForm(){
       if (this.form.utype === 'student'){
-        this.request.post("user/reset",{
+        this.request.post("login/user/reset",{
           uid:this.form.uid,
           uname: this.form.uname,
           umail: this.form.umail,
@@ -83,7 +83,7 @@ export default {
               }
             })
       } else {
-        this.request.post("org/reset",{
+        this.request.post("login/org/reset",{
           uid:this.form.zid,
           zstudent: this.form.zstudent,
           zmail: this.form.umail,

@@ -21,7 +21,7 @@
       <el-form-item label="商品图片">
         <el-upload
             ref="uploadImg"
-            action="http://localhost:8088/commodity/upload111"
+            action=""
             :limit=1
             :auto-upload="false"
             list-type="picture-card"
@@ -121,7 +121,7 @@ export default {
       //this.$refs.uploadImg.submit();
       let formData = new FormData();
       formData.append("cid",cid);
-      formData.append("file",this.uploadForm.fileToUpload);
+      formData.append("cavatar",this.uploadForm.fileToUpload);
       this.request.post("commodity/upload",formData,{
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -144,6 +144,7 @@ export default {
           uid:studentInfo.state.stuInfo.uid,
           cname:this.uploadForm.cname,
           description:this.uploadForm.description,
+          cavatar:"",
           price:this.uploadForm.price,
           ctime:getDateTime(),
           ctype:this.uploadForm.ctype
