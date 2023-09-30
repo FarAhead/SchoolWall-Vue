@@ -105,6 +105,12 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
+          .then(res=>{
+            if(res.code === "200"){
+              this.$message.success("头像上传成功");
+              studentInfo.commit('UPDATE_STU_AVATAR',res.data)
+            }
+          })
     }
 
   }

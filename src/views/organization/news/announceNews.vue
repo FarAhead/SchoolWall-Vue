@@ -1,13 +1,13 @@
 <template>
 <div>
-  <el-form :model="announce" label-width="120px">
+  <el-form :model="announce" label-width="120px" class="announceCard">
     <el-form-item label="公告标题">
       <el-input v-model="announce.title"></el-input>
     </el-form-item>
     <el-form-item label="公告内容">
       <el-input v-model="announce.content"></el-input>
     </el-form-item>
-    <el-button type="primary" @click="submitForm">发布</el-button>
+    <el-button type="primary" @click="submitForm" style="float: right;">发布</el-button>
   </el-form>
 </div>
 </template>
@@ -47,5 +47,7 @@ export default {
 </script>
 
 <style scoped>
-
+.announceCard{
+  width: 600px;
+}
 </style>

@@ -1,32 +1,36 @@
 <template>
 <div>
-  <answer-item v-for="answer in answers" :key="answer.aid" :answer="answer"></answer-item>
+  <el-empty v-if="!reports" description="暂无待审核举报"></el-empty>
+  <report-item v-else v-for="report in reports" :key="report.aid" :report="report"></report-item>
 </div>
 </template>
 
 <script>
-import answerItem from "@/components/card/reportItem.vue";
+import reportItem from "@/components/card/reportItem.vue";
 export default {
   name: "reportVerify",
   data(){
     return{
-      answers:{
-        aid:0,
+      reports:{
         qid:0,
         uid:0,
-        acontent:"",
-        atime:""
+        qtitle:"",
+        qcontent:"",
+        qtime:"",
+        uname:{
+          uname:"",
+        }
       },
     }
   },
   components:{
-    answerItem
+    reportItem
   },
   methods:{
     fetchReport(){
-      this.request.post("answer/query2")
+      this.request.post("question/query2")
           .then(res=>{
-            this.answers = res.data;
+            this.reports = res.data;
           })
     }
 

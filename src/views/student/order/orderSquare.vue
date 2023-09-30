@@ -102,6 +102,7 @@ export default {
           .then(res=>{
             if(res.code === "200"){
               this.orders = res.data;
+              console.log("商品信息已加载")
             } else {
               this.$message.error("加载商品信息失败！")
             }
@@ -155,6 +156,7 @@ export default {
                 this.$message.success("上传商品信息成功！")
                 this.dialogVisible=false;
                 this.$refs['commodityUpload'].resetFields();
+                this.loadCommodity();
 
               } else {
                 this.$message.error("上传商品信息失败！")

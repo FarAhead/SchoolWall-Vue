@@ -14,6 +14,9 @@ const studentInfo = new Vuex.Store({
             state.stuInfo = userInfo;
             state.isStuLogged = true
         },
+        UPDATE_STU_AVATAR(state, avatarURL){
+            state.stuInfo.uavatar = avatarURL
+        },
         CLEAR_STU_INFO(state){
             state.stuInfo =null;
             state.isStuLogged = false

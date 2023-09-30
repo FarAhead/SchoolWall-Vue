@@ -114,6 +114,12 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
+          .then(res=>{
+            if(res.code === "200"){
+              this.$message.success("头像上传成功");
+              organizationInfo.commit('UPDATE_ORG_AVATAR',res.data)
+            }
+          })
     }
   }
 }

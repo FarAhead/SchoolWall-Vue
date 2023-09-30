@@ -18,35 +18,35 @@ export default {
       questions:[
         {
           qid:0,
-          qtitle:"问题名称",
-          qcontent:"问题的具体描述",
+          qtitle:"",
+          qcontent:"",
           qtime:"",
           user:{
+            uid:"",
             uname:"",
             uavatar:""
           },
           qbrowsecount:0,
           qlikecount:0,
           qanswercount:0,
-
         },
       ],
     }
   },
   methods:{
-    getUserName() {
-      return studentInfo.state.stuInfo.uname
-    }
+
   },
   mounted() {
-    this.request.post('question/myfavorite',{
+    this.request.post('lik/my',{
       uid:studentInfo.state.stuInfo.uid
     })
         .then((response)=>{
           if (response.code==="200"){
             this.questions = response.data;
-            //this.getUserName();
           }
+        })
+        .catch(err=>{
+          this.$message.error("获取失败")
         })
   }
 }

@@ -23,7 +23,7 @@
         <el-button icon="el-icon-search" @click="likeQuestion"  :type="isLiked ? 'primary' : 'default'"> {{ isLiked ? '已点赞' : '点赞' }} {{question.qlikecount}}</el-button>
         <el-button icon="el-icon-search" @click="expandAnswer">评论 {{question.qanswercount}}</el-button>
         <el-button icon="el-icon-search" @click="collectQuestion" :type="isCollected ? 'warning':'default'">{{isCollected?'已收藏':'收藏'}}</el-button>
-        <el-button icon="el-icon-search" >举报</el-button>
+        <el-button icon="el-icon-search" @click="reportQuestion" type="danger" v-if="this.$props.isSelf!==true">举报</el-button>
         <el-button icon="el-icon-search" v-if="this.$props.isSelf===true" type="danger" @click="deleteQuestion">删除帖子</el-button>
       </div>
       <div class="comment-count">
@@ -292,13 +292,31 @@ new bing的回答:
       } else {
         this.$message.error("只有帖子作者可以删除帖子哦~")
       }
-    }
+    },
+
+    //举报帖子
+    reportQuestion(){
+      this.request.post("question/rep",{
+        qid:this.$props.question.qid
+      })
+          .then(res=>{
+            if (res.code==="200"){
+              this.$message.success("举报成功！管理员正在审核中~");
+            } else {
+              this.$message.error("举报失败！")
+            }
+          })
+          .catch(err=>{
+            this.$message.error("error!")
+          })
+    },
 
   },
 
 
   mounted() {
 
+    //获取每个帖子自己的点赞和收藏状态
     if(studentInfo.state.stuInfo ){
       this.request.post("question/find1",{
           qid:this.$props.question.qid,
@@ -317,7 +335,6 @@ new bing的回答:
     } else {
       this.$message.error("当前用户未登录，请先登录！")
     }
-
 
     //当前item进入浏览器窗口使开始观察，实现浏览量的增加
     this.$nextTick(() => {

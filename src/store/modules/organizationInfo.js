@@ -15,6 +15,9 @@ const organizationInfo = new Vuex.Store({
             state.orgInfo = userInfo;
             state.isOrgLogged = true
         },
+        UPDATE_ORG_AVATAR(state, avatarURL){
+            state.orgInfo.zavatar = avatarURL
+        },
         CLEAR_ORG_INFO(state){
             state.orgInfo =null;
             state.isOrgLogged = false

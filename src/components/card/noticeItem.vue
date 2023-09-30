@@ -25,16 +25,29 @@
   <div class="edit-button" v-if="this.permission==='org'" style="float: right">
     <el-button type="primary" @click="dialogVisible = true">编辑内容</el-button>
     <el-dialog
-        title="提示"
+        title="修改公告信息"
         :visible.sync="dialogVisible"
         width="30%"
         :before-close="handleClose">
-      <span>修改公告信息</span>
-      <el-input v-model="this.$props.notice.ncontent" type="textarea" autosize></el-input>"
+      <el-input v-model="inputContent"  autosize></el-input>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="editContent">确 定</el-button>
-  </span>
+        <el-button @click="cancelEdit">取 消</el-button>
+        <el-button type="primary" @click="editContent">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
+  <div class="del-button" v-if="this.permission==='org'" style="float: right">
+    <el-button type="danger" @click="dialogVisible2 = true">删除公告</el-button>
+    <el-dialog
+        title="删除公告"
+        :visible.sync="dialogVisible2"
+        width="30%"
+        :before-close="handleClose">
+      <span>您确认要删除此条公告吗？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible2=false">取 消</el-button>
+        <el-button type="primary" @click="deleteNotice">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </el-card>
@@ -57,7 +70,9 @@ export default {
   props:['notice','permission'],
   data(){
     return{
-      dialogVisible: false
+      dialogVisible: false,
+      dialogVisible2:false,
+      inputContent:'',
     }
   },
   methods:{
@@ -98,7 +113,7 @@ export default {
     editContent(){
       this.request.post("notice/change",{
         nid:this.notice.nid,
-        content:this.$props.notice.ncontent
+        content:this.inputContent
       })
           .then(res=>{
             if (res.code==="200"){
@@ -110,14 +125,29 @@ export default {
             }
           })
     },
-    edit(){
-      this.dialogVisible = true
+    cancelEdit(){
+      this.dialogVisible = false;
+      this.inputContent = this.$props.notice.ncontent;
     },
+
     deleteNotice(){
-      this.request.post("notice/delete",{
+      this.request.post("notice/del",{
+        nid:this.notice.nid
       })
-    }
+          .then(res=>{
+            if (res.code==="200"){
+              this.$message.success("删除成功");
+              this.dialogVisible2=false;
+              this.$parent.fetchNotice();
+            }else {
+              this.$message.error("error")
+            }
+          })
+    },
   },
+  mounted() {
+    this.inputContent=this.$props.notice.ncontent;
+  }
 }
 </script>
 

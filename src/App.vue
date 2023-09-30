@@ -5,7 +5,12 @@
 </template>
 <script>
 export default {
-  name:'App'
+  name:'App',
+  beforeMount() {
+    window.addEventListener('beforeunload',function (e){
+      window.localStorage.clear();
+    });
+  }
 }
 </script>
 
