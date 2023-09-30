@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import answerItem from "@/components/card/answerItem.vue";
+import answerItem from "@/components/card/reportItem.vue";
 export default {
   name: "reportVerify",
   data(){

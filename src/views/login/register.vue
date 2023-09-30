@@ -146,6 +146,9 @@ export default {
                       this.$message.error("该账号已存在，请尝试登录")
                     }
                   })
+                  .catch(err=>{
+                    this.$message.error("学生账号注册失败")
+                  })
           } else {
             this.request.post("user/oinsert",{
               zname:this.newUser.zname,
@@ -162,6 +165,9 @@ export default {
                   } else {
                     this.$message.error("该账号已存在，请尝试登录")
                   }
+                })
+                .catch(err=>{
+                  this.$message.error("组织账号注册失败")
                 })
           }
 
