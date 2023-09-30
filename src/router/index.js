@@ -23,6 +23,11 @@ const routes = [
     hidden: true
   },
   {
+    path:"/forgetPass",
+    component:()=>import('../views/login/forgetPass.vue'),
+    hidden:true
+  },
+  {
     path: "/admin",
     component:() => import('../views/admin/index.vue'),
     redirect: 'admin/home',

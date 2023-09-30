@@ -10,6 +10,10 @@ export const mockPaths = {
     "login/org" : "https://mock.apifox.cn/m2/3303344-0-default/111733082",
     //组织注册
     "user/oinsert" : "https://mock.apifox.cn/m2/3303344-0-default/111834435",
+    //个人重置密码
+    "user/reset" : "https://mock.apifox.cn/m2/3303344-0-default/111538393",
+    //组织重置密码
+    "org/reset" : "https://mock.apifox.cn/m2/3303344-0-default/111824007",
 
 
 

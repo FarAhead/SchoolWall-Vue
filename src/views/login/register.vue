@@ -82,7 +82,7 @@ export default {
         callback(new Error("请输入密码"));
       } else {
         if (this.newUser.upwd !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
+          this.$refs['registerForm'].validateField("checkPass");
         }
         callback();
       }
@@ -138,6 +138,14 @@ export default {
                 umail:this.newUser.email,
                 utype: 2
               })
+                  .then(res=>{
+                    if (res.code==="200"){
+                      this.$message.success("学生账号注册成功");
+                      this.$router.replace('/login')
+                    } else {
+                      this.$message.error("该账号已存在，请尝试登录")
+                    }
+                  })
           } else {
             this.request.post("user/oinsert",{
               zname:this.newUser.zname,
@@ -150,8 +158,9 @@ export default {
                 .then(res=>{
                   if (res.code==="200"){
                     this.$message.success("组织注册成功")
+                    this.$router.replace('/login')
                   } else {
-                    this.$message.error("组织注册失败，请联系管理员")
+                    this.$message.error("该账号已存在，请尝试登录")
                   }
                 })
           }

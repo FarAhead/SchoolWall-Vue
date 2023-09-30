@@ -31,7 +31,10 @@
         <el-button type="primary" @click="submitForm('loginForm')">登录</el-button>
         <el-button @click="resetForm('loginForm')">重置</el-button>
         <router-link to="/register">
-          <el-button style="margin-left:10px">注册</el-button>
+          <el-button type="success" style="margin-left:10px">注册</el-button>
+        </router-link>
+        <router-link to="/forgetPass">
+          <el-button type="info" style="margin-left:10px">忘记密码</el-button>
         </router-link>
       </div>
     </el-card>
@@ -50,7 +53,7 @@ export default {
       user: {
         uid: "",
         password: "",
-        type: "admin"
+        type: "student"
       },
       rules: {
         uid: [{ required: true, message: "账号不能为空！", trigger: "blur" },],
