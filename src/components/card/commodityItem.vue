@@ -1,6 +1,6 @@
 <template>
   <el-col :span="6">
-    <el-card :body-style="{ padding: '0px' }" shadow="hover" style="border-radius: 10px">
+    <el-card :body-style="{ padding: '0px' }" shadow="hover" style="border-radius: 10px;margin-bottom: 40px;min-width: 250px">
       <el-image :src=order.cavatar class="image" style="min-height: 200px" fit="cover"></el-image>
       <div style="padding: 16px;">
         <span style="font-size: 20px;font-weight: bold">{{ order.cname }}</span>

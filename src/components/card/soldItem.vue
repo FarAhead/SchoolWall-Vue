@@ -21,7 +21,7 @@
       <el-descriptions-item label="买方id">{{this.$props.mySold.obid?this.$props.mySold.obid:'暂无数据'}}</el-descriptions-item>
       <el-descriptions-item label="商品价格">￥{{this.$props.mySold.price}}</el-descriptions-item>
       <el-descriptions-item label="创建日期">{{this.$props.mySold.ocreatedate}}</el-descriptions-item>
-      <el-descriptions-item label="成交日期">{{this.$props.mySold.ofinishdate?this.$props.mySold.ofinishdate:'暂无数据'}}</el-descriptions-item>
+      <el-descriptions-item label="成交日期">{{this.$props.mySold.obid?this.$props.mySold.ofinishdate:'暂无数据'}}</el-descriptions-item>
     </el-descriptions>
   </el-card>
 </template>
