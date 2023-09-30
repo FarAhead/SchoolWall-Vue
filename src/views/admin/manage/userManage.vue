@@ -52,7 +52,7 @@
             <el-button size="mini" type="text" @click="scope.row.visible1 = false">取消</el-button>
             <el-button type="primary" size="mini" @click="changePwd(scope.row)">确定</el-button>
           </div>
-          <el-button slot="reference" size="mini">更改密码</el-button>
+          <el-button slot="reference" size="mini" style="margin-right: 20px">更改密码</el-button>
         </el-popover>
 
         <el-popover

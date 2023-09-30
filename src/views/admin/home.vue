@@ -8,14 +8,16 @@
           <div class="userName"><h1>admin</h1></div>
         </div>
         <div class="description">
-          <h3>这可以是一段用户描述</h3>
+          <h3>这是admin用户</h3>
         </div>
       </div>
     </div>
   </el-col>
-  <el-col :span="14"><div class="grid-content bg-purple-light">
-    <h3>这里是一些放在首页的数据</h3>
-  </div></el-col>
+  <el-col :span="14" class="grid-right">
+    <div>
+    <h3>这里是一些统计数据</h3>
+  </div>
+  </el-col>
 
 </div>
 </template>
@@ -27,6 +29,10 @@ export default {
 </script>
 
 <style scoped>
-
+.grid-right{
+  background-color: white;
+  border-radius: 10px;
+  justify-content: center;
+}
 
 </style>

@@ -1,13 +1,13 @@
 <template>
-  <el-container style="height: 100vh">
-    <el-aside width="200px">
+  <el-container style="height: 100vh;background-color: #F5F5F5" >
+    <el-aside width="220px" class="el-aside">
       <Aside>
       </Aside>
     </el-aside>
 
-    <el-container>
+    <el-container class="main-container">
 
-      <el-header>
+      <el-header class="header">
         <Header></Header>
       </el-header>
 
@@ -32,6 +32,7 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+@import "@/assets/Aside.less";
+@import "@/assets/container.less";
 </style>

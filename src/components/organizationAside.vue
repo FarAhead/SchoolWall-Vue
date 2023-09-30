@@ -1,26 +1,26 @@
 <template>
-  <div>
-    <h3>学生组织中心</h3>
+  <div class="aside-container">
+    <div class="name-title">学生组织中心</div>
 
     <el-menu
         default-active="1"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
-        background-color="#545c64"
+        background-color="#607D8B"
         text-color="#fff"
         active-text-color="#ffd04b"
         :collapse="isCollapse"
         :router="true"
     >
-      <el-menu-item index="/organization/home">
+      <el-menu-item index="/organization/home" class="aside-item">
         <i class="el-icon-location"></i>
         <span>组织首页</span>
       </el-menu-item>
 
-      <el-menu-item @click="logout">
+      <el-menu-item @click="logout" class="aside-item">
         <i class="el-icon-setting"></i>
-        <span slot="title">退出登录</span>
+        <span slot="title" >退出登录</span>
       </el-menu-item>
     </el-menu>
   </div>

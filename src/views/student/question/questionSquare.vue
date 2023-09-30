@@ -1,14 +1,13 @@
 <template>
 <el-row :gutter="20">
-  <el-col :span="18" >
+  <el-col :span="19"  style="height: 100%;">
     <div class="grid-content bg-purple">
-
-      <div class="channel-container" style="display: flex">
-        <div class="channel"><el-button round>健身</el-button></div>
-        <div class="channel"><el-button round>美食</el-button></div>
-        <div class="channel"><el-button round>运动</el-button></div>
-        <div class="channel"><el-button round>生活</el-button></div>
-        <div class="channel"><el-button round>学习</el-button></div>
+      <div class="channel-container" style="display: flex;padding-top: 20px;padding-left: 20px">
+        <div class="channel"><el-button round >健身</el-button></div>
+        <div class="channel"><el-button round >美食</el-button></div>
+        <div class="channel"><el-button round >运动</el-button></div>
+        <div class="channel"><el-button round >生活</el-button></div>
+        <div class="channel"><el-button round >学习</el-button></div>
       </div>
 
       <div class="content-list-container">
@@ -17,12 +16,12 @@
     </div>
 
   </el-col>
-  <el-col :span="6">
+  <el-col :span="5">
     <div class="grid-content bg-purple-light">
       <div class="ask-question" style="display: flex">
-        <div class="ask-question-title">
-          <div class="ask-question-head" @click="isAskShow =!isAskShow"><span>点击提问</span></div>
-          <el-collapse-transition>
+        <div class="ask-question-title" style="margin-top: 80px">
+          <div class="ask-question-head" @click="isAskShow =!isAskShow"><span style="font-weight: bold;color: #00838F;font-size: 20px">点击提问</span></div>
+          <transition name="el-fade-in-linear">
             <el-form class="ask-question-content" v-show="isAskShow" :model="askForm" ref="askForm">
               <el-form-item label="问题名称" prop="askTitle">
                 <el-input v-model="askForm.askTitle"></el-input>
@@ -35,10 +34,10 @@
                           show-word-limit
                 >
                 </el-input>
-                <el-button type="primary" @click="submitForm('askForm')" >立即提问</el-button>
+                <el-button type="primary" @click="submitForm('askForm')" style="margin-top: 40px;float: right">立即提问</el-button>
               </el-form-item>
             </el-form>
-          </el-collapse-transition>
+          </transition>
         </div>
       </div>
 
@@ -155,26 +154,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.channel{
+margin-right: 10px;
+  el-button{
+    box-shadow: #8c939d 0 0 10px;
+  }
+}
 
-.el-col {
-  border-radius: 4px;
-}
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
 .grid-content {
   border-radius: 4px;
   min-height: 36px;
 }
-.row-bg {
-  padding: 10px 0;
-  background-color: #f9fafc;
-}
+
 </style>

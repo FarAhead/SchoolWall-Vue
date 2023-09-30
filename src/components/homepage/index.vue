@@ -2,9 +2,9 @@
 <div>
   <div class="homepage-container">
     <div class="home-header">
-      <div class="home-user-info">
+      <div class="home-user-info" style="">
         <div class="home-user-avatar">
-          <el-avatar :src="userAvatar" :size="60"></el-avatar>
+          <el-avatar :src="userAvatar" :size="80"></el-avatar>
         </div>
         <div class="home-user-name">
 
@@ -50,5 +50,13 @@ export default {
 </script>
 
 <style scoped>
-
+.home-user-info{
+  margin: 5px;
+  margin-bottom: 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 20px;
+  background: linear-gradient(to bottom right, #B2EBF2, #E8F5E9);
+  border-radius: 20px;
+}
 </style>

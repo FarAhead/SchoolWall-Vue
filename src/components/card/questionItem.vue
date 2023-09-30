@@ -1,72 +1,73 @@
 <template>
-  <el-card class="content-item-content" shadow="hover" style="margin: 20px;background-color:aliceblue" >
+  <el-card class="content-item-content" shadow="hover" >
     <div ref="questionItem">
-    <div class="content-info" style="display: grid; grid-template-columns: 150px 1fr">
-      <div class="questioner-info">
-        <div class="questioner-avatar" style="justify-items: center;margin: 10px">
-          <el-avatar :src=question.user.uavatar :size="70"></el-avatar>
-        </div>
-        <div class="questioner-name"><span>{{question.user.uname}}</span></div>
-      </div>
-      <div class="questiion-info">
-        <div class="question-title">{{question.qtitle}}</div>
-        <div class="question-content">
-          <div class="question-content-text">
-            {{shortContent}}
+      <div class="content-info" style="">
+        <div class="questioner-info" >
+          <div class="questioner-avatar" >
+            <el-avatar :src=question.user.uavatar :size="80"></el-avatar>
           </div>
-          <el-button v-if="showButton" type="text" class="show-all-content" @click="expandContent">展开全文</el-button>
+          <div class="questioner-name"><span>{{question.user.uname}}</span></div>
         </div>
-      </div>
-    </div>
-    <div class="comment-item" style="display: flex;justify-content: space-between">
-      <div class="comment-button">
-        <el-button icon="el-icon-search" @click="likeQuestion"  :type="isLiked ? 'primary' : 'default'"> {{ isLiked ? '已点赞' : '点赞' }} {{question.qlikecount}}</el-button>
-        <el-button icon="el-icon-search" @click="expandAnswer">评论 {{question.qanswercount}}</el-button>
-        <el-button icon="el-icon-search" @click="collectQuestion" :type="isCollected ? 'warning':'default'">{{isCollected?'已收藏':'收藏'}}</el-button>
-        <el-button icon="el-icon-search" @click="reportQuestion" type="danger" v-if="this.$props.isSelf!==true">举报</el-button>
-        <el-button icon="el-icon-search" v-if="this.$props.isSelf===true" type="danger" @click="deleteQuestion">删除帖子</el-button>
-      </div>
-      <div class="comment-count">
-        <span>{{question.qtime}}发布&nbsp&nbsp&nbsp</span>
-        <span>  {{question.qbrowsecount }}次浏览</span>
-      </div>
-    </div>
-
-    <el-collapse-transition>
-      <div class="answer-zone" v-show="showAnswer">
-        <div class="my-answer" style="display: flex">
-          <div class="input-zone" style="width: 80%">
-            <el-input
-                type="textarea"
-                placeholder="请输入内容"
-                v-model="textarea"
-                maxlength="100"
-                show-word-limit
-            >
-            </el-input>
+        <div class="questiion-info">
+          <div class="question-title">{{question.qtitle}}</div>
+          <div class="question-content">
+            <div class="question-content-text">
+              {{shortContent}}
+            </div>
+            <el-button v-if="showButton" type="text" class="show-all-content" @click="expandContent">展开全文</el-button>
           </div>
-          <el-button type="primary" @click="submitAnswer" style="height: 50px">提交</el-button>
         </div>
+      </div>
+      <div class="comment-item" style="display: flex;justify-content: space-between">
+        <div class="comment-button">
+          <el-button icon="el-icon-search" @click="likeQuestion"  :type="isLiked ? 'primary' : 'default'"> {{ isLiked ? '已点赞' : '点赞' }} {{question.qlikecount}}</el-button>
+          <el-button icon="el-icon-search" @click="expandAnswer">评论 {{question.qanswercount}}</el-button>
+          <el-button icon="el-icon-search" @click="collectQuestion" :type="isCollected ? 'warning':'default'">{{isCollected?'已收藏':'收藏'}}</el-button>
+          <el-button icon="el-icon-search" @click="reportQuestion" type="danger" v-if="this.$props.isSelf!==true">举报</el-button>
+          <el-button icon="el-icon-search" v-if="this.$props.isSelf===true" type="danger" @click="deleteQuestion">删除帖子</el-button>
+        </div>
+        <div class="comment-count">
+          <span>{{question.qtime}}&nbsp&nbsp&nbsp</span>
+          <span style="font-weight: bold">  {{question.qbrowsecount }}次浏览</span>
+        </div>
+      </div>
 
-        <div class="answer-list">
-          <div class="answer-list-item" v-for="answer in answers" :key="answer.aid" style="display: grid;grid-template-columns: 80px 1fr" >
-            <div class="answer-info">
-              <div class="answer-avatar">
-                <el-avatar :src=answer.aavatar :size="50"></el-avatar>
+      <el-collapse-transition>
+        <div class="answer-zone" v-show="showAnswer">
+          <div class="my-answer" style="display: flex">
+            <div class="input-zone" style="width: 80%">
+              <el-input
+                  type="textarea"
+                  :rows="2"
+                  placeholder="请输入内容"
+                  v-model="textarea"
+                  maxlength="100"
+                  show-word-limit
+              >
+              </el-input>
+            </div>
+            <el-button type="primary" @click="submitAnswer" style="height: 40px;margin-left: 10px">提交</el-button>
+          </div>
+
+          <div class="answer-list">
+            <div class="answer-list-item" v-for="answer in answers" :key="answer.aid" style="display: grid;grid-template-columns: 80px 1fr" >
+              <div class="answer-info">
+                <div class="answer-avatar">
+                  <el-avatar :src=answer.aavatar :size="45"></el-avatar>
+                </div>
+              </div>
+              <div class="answer-content">
+                <div class="answer-name">
+                  {{ answer.aname || "未知用户" }}
+                </div>
+                <div class="answer-text">
+                  {{answer.acontent}}
+                </div>
               </div>
             </div>
-            <div class="answer-content">
-              <div class="answer-name">
-                {{ answer.aname || "未知用户" }}
-              </div>
-              <div class="answer-text">
-                {{answer.acontent}}
-              </div>
-            </div>
           </div>
         </div>
-      </div>
-    </el-collapse-transition>
+      </el-collapse-transition>
     </div>
   </el-card>
 </template>
@@ -362,6 +363,6 @@ new bing的回答:
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+@import "@/assets/question.less";
 </style>

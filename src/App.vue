@@ -6,11 +6,11 @@
 <script>
 export default {
   name:'App',
-  beforeMount() {
-    window.addEventListener('beforeunload',function (e){
-      window.localStorage.clear();
-    });
-  }
+  // beforeMount() {
+  //   window.addEventListener('beforeunload',function (e){
+  //     window.localStorage.clear();
+  //   });
+  // }
 }
 </script>
 

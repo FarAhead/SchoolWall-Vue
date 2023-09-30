@@ -1,13 +1,15 @@
 <template>
-  <el-col :span="5">
-    <el-card :body-style="{ padding: '0px' }" shadow="hover">
-      <el-image :src=order.cavatar class="image"></el-image>
-      <div style="padding: 14px;">
-        <span>{{ order.cname }}</span>
-        <div class="commodity-price">￥{{order.price}}</div>
+  <el-col :span="6">
+    <el-card :body-style="{ padding: '0px' }" shadow="hover" style="border-radius: 10px">
+      <el-image :src=order.cavatar class="image" style="min-height: 200px" fit="cover"></el-image>
+      <div style="padding: 16px;">
+        <span style="font-size: 20px;font-weight: bold">{{ order.cname }}</span>
+        <div class="commodity-price" style="float: right;font-weight: bold;color: #BF360C">￥{{order.price}}</div>
         <div class="commodity-description">“ {{order.description}} ”</div>
         <div class="bottom clearfix">
-          <time class="time">{{ order.ctime }}</time>
+          <time class="time">
+            {{ order.ctime }}
+          </time>
           <el-popover
               ref="popover"
               placement="button"
@@ -33,7 +35,7 @@
               <el-button @click="this.isPopoverShow=false">再想想</el-button>
               <el-button type="primary" @click="submitBuy">现在下单</el-button>
             </div>
-            <el-button size="medium"  class="button" slot="reference">我想要</el-button>
+            <el-button size="medium" type="warning" class="button" slot="reference" round icon="el-icon-shopping-bag-2" style="margin-bottom: 20px"></el-button>
           </el-popover>
 
         </div>
@@ -82,7 +84,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .time {
   font-size: 13px;
   color: #999;
@@ -97,6 +99,6 @@ export default {
   display: block;
 }
 
-
+@import "@/assets/commodity.less";
 
 </style>

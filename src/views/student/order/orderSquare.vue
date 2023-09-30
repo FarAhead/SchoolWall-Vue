@@ -1,7 +1,7 @@
 <template>
 <div>
   <div>
-    <el-button type="warning" icon="el-icon-box" @click="dialogVisible = true">点我发布商品</el-button>
+    <el-button type="warning" icon="el-icon-box" @click="dialogVisible = true" style="margin-top: 15px;margin-bottom: 20px">点我发布商品</el-button>
   </div>
 
   <el-dialog title="发布商品" :visible.sync="dialogVisible" width="30%" :before-close="handleDialogClose">
@@ -132,6 +132,7 @@ export default {
           .then(res=>{
             if (res.code === "200"){
               console.log("图片上传成功");
+              this.loadCommodity();
             } else {
               console.log("图片上传失败");
             }
@@ -156,7 +157,6 @@ export default {
                 this.$message.success("上传商品信息成功！")
                 this.dialogVisible=false;
                 this.$refs['commodityUpload'].resetFields();
-                this.loadCommodity();
 
               } else {
                 this.$message.error("上传商品信息失败！")

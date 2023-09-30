@@ -1,40 +1,40 @@
 <template>
-  <div>
-    <h3>校园墙</h3>
+  <div class="aside-container">
+    <div class="name-title">校园万能墙</div>
 
     <el-menu
         default-active="1"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
-        background-color="#545c64"
+        background-color="#607D8B"
         text-color="#fff"
         active-text-color="#ffd04b"
         :collapse="isCollapse"
         :router="true"
     >
-      <el-menu-item index="/student/questionSquare">
-        <i class="el-icon-location"></i>
+      <el-menu-item index="/student/questionSquare" class="aside-item">
+        <i class="el-icon-chat-dot-round"></i>
         <span>有问必答</span>
       </el-menu-item>
 
-      <el-menu-item index="/student/orderSquare">
-        <i class="el-icon-location"></i>
+      <el-menu-item index="/student/orderSquare"class="aside-item">
+        <i class="el-icon-shopping-cart-2"></i>
         <span>闲置交易</span>
       </el-menu-item>
 
-      <el-menu-item index="/student/newsSquare">
-        <i class="el-icon-location"></i>
+      <el-menu-item index="/student/newsSquare" class="aside-item">
+        <i class="el-icon-tickets"></i>
         <span>公告中心</span>
       </el-menu-item>
 
-      <el-menu-item index="/student/home">
-        <i class="el-icon-location"></i>
+      <el-menu-item index="/student/home" class="aside-item">
+        <i class="el-icon-user"></i>
         <span>我的主页</span>
       </el-menu-item>
 
-      <el-menu-item @click="logout">
-        <i class="el-icon-setting"></i>
+      <el-menu-item @click="logout" class="aside-item">
+        <i class="el-icon-switch-button"></i>
         <span slot="title">退出登录</span>
       </el-menu-item>
     </el-menu>

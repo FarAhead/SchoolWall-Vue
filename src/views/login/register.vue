@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-container">
     <el-card class="box-card">
       <h2>注册</h2>
       <el-form
@@ -188,11 +188,6 @@ export default {
 </script>
 
 <style scoped>
-.box-card {
-  margin: auto auto;
-  width: 400px;
-}
-.login-from {
-  margin: auto auto;
-}
+@import "@/assets/login.less";
+
 </style>
