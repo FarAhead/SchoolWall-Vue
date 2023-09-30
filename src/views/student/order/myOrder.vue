@@ -31,7 +31,7 @@ export default {
   methods:{
     fetchMyOrder(){
       this.request.post("order/query1",{
-        uid:studentInfo.state.stuInfo.uid
+        obid:studentInfo.state.stuInfo.uid
       })
           .then(res=> {
               if(res.code==="200"){
